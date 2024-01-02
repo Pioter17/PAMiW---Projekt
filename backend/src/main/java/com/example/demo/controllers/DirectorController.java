@@ -5,6 +5,9 @@ import com.example.demo.models.Movie;
 import com.example.demo.other.ServiceResponse;
 import com.example.demo.repositories.DirectorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -25,15 +28,56 @@ public class DirectorController {
         this.directorRepository = directorRepository;
     }
 
+//    @GetMapping
+//    @CrossOrigin(origins = "http://localhost:4200")
+//    public List<Director> getAllDirectors() {
+//        return directorRepository.findAll();
+//    }
+
     @GetMapping
     @CrossOrigin(origins = "http://localhost:4200")
-    public List<Director> getAllDirectors() {
-        return directorRepository.findAll();
+    public ResponseEntity<List<Director>> getAllDirectors(
+            @RequestParam(name = "page", defaultValue = "0") int page,
+            @RequestParam(name = "size", defaultValue = "10") int size
+    ) {
+        Pageable pageable = PageRequest.of(page, size);
+        Page<Director> directorPage = directorRepository.findAll(pageable);
+
+        List<Director> directors = directorPage.getContent();
+
+        if (directors.isEmpty()) {
+            return ResponseEntity.ok(Collections.emptyList());
+        } else {
+            return ResponseEntity.ok(directors);
+        }
     }
 
+//    @GetMapping("/search")
+//    public ResponseEntity<List<Director>> searchMovies(@RequestParam("name") String name) {
+//        List<Director> directors = directorRepository.findAll();
+//        String fragmentLowerCase = name.toLowerCase();
+//
+//        List<Director> matchingDirectors = directors
+//                .stream()
+//                .filter(director -> director.getName().toLowerCase().contains(fragmentLowerCase))
+//                .collect(Collectors.toList());
+//
+//        if (matchingDirectors.isEmpty()) {
+//            return ResponseEntity.ok(Collections.emptyList());
+//        } else {
+//            return ResponseEntity.ok(matchingDirectors);
+//        }
+//    }
+
     @GetMapping("/search")
-    public ResponseEntity<List<Director>> searchMovies(@RequestParam("name") String name) {
+    public ResponseEntity<List<Director>> searchDirectors(
+            @RequestParam("name") String name,
+            @RequestParam(name = "page", defaultValue = "0") int page,
+            @RequestParam(name = "size", defaultValue = "10") int size
+    ) {
+        Pageable pageable = PageRequest.of(page, size);
         List<Director> directors = directorRepository.findAll();
+
         String fragmentLowerCase = name.toLowerCase();
 
         List<Director> matchingDirectors = directors
@@ -41,10 +85,13 @@ public class DirectorController {
                 .filter(director -> director.getName().toLowerCase().contains(fragmentLowerCase))
                 .collect(Collectors.toList());
 
-        if (matchingDirectors.isEmpty()) {
+        int start = (int) pageable.getOffset();
+        int end = Math.min((start + pageable.getPageSize()), matchingDirectors.size());
+
+        if (start > matchingDirectors.size() || start < 0 || start > end) {
             return ResponseEntity.ok(Collections.emptyList());
         } else {
-            return ResponseEntity.ok(matchingDirectors);
+            return ResponseEntity.ok(matchingDirectors.subList(start, end));
         }
     }
 

@@ -9,6 +9,9 @@ import com.example.demo.repositories.MovieRepository;
 import com.example.demo.services.MovieDTOConverterService;
 import com.example.demo.services.MovieService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
@@ -38,16 +41,56 @@ public class MovieController {
     }
 
     // Endpoint do pobierania wszystkich filmów
+//    @GetMapping
+//    @CrossOrigin(origins = "http://localhost:4200")
+//    public List<Movie> getAllMovies() {
+//        return movieRepository.findAll();
+//    }
+
     @GetMapping
     @CrossOrigin(origins = "http://localhost:4200")
-    public List<Movie> getAllMovies() {
-        return movieRepository.findAll();
-    }
+    public ResponseEntity<List<Movie>> getAllMovies(
+            @RequestParam(name = "page", defaultValue = "0") int page,
+            @RequestParam(name = "size", defaultValue = "10") int size
+    ) {
+        Pageable pageable = PageRequest.of(page, size);
+        Page<Movie> moviePage = movieRepository.findAll(pageable);
 
+        List<Movie> movies = moviePage.getContent();
+
+        if (movies.isEmpty()) {
+            return ResponseEntity.ok(Collections.emptyList());
+        } else {
+            return ResponseEntity.ok(movies);
+        }
+    }
     // Endpoint do pobierania filmów zawierających w nazwie podanego stringa
+//    @GetMapping("/search")
+//    public ResponseEntity<List<Movie>> searchMovies(@RequestParam("name") String name) {
+//        List<Movie> movies = movieRepository.findAll();
+//        String fragmentLowerCase = name.toLowerCase();
+//
+//        List<Movie> matchingMovies = movies
+//                .stream()
+//                .filter(movie -> movie.getName().toLowerCase().contains(fragmentLowerCase))
+//                .collect(Collectors.toList());
+//
+//        if (matchingMovies.isEmpty()) {
+//            return ResponseEntity.ok(Collections.emptyList());
+//        } else {
+//            return ResponseEntity.ok(matchingMovies);
+//        }
+//    }
+
     @GetMapping("/search")
-    public ResponseEntity<List<Movie>> searchMovies(@RequestParam("name") String name) {
+    public ResponseEntity<List<Movie>> searchMovies(
+            @RequestParam("name") String name,
+            @RequestParam(name = "page", defaultValue = "0") int page,
+            @RequestParam(name = "size", defaultValue = "10") int size
+    ) {
+        Pageable pageable = PageRequest.of(page, size);
         List<Movie> movies = movieRepository.findAll();
+
         String fragmentLowerCase = name.toLowerCase();
 
         List<Movie> matchingMovies = movies
@@ -55,10 +98,13 @@ public class MovieController {
                 .filter(movie -> movie.getName().toLowerCase().contains(fragmentLowerCase))
                 .collect(Collectors.toList());
 
-        if (matchingMovies.isEmpty()) {
+        int start = (int) pageable.getOffset();
+        int end = Math.min((start + pageable.getPageSize()), matchingMovies.size());
+
+        if (start > matchingMovies.size() || start < 0 || start > end) {
             return ResponseEntity.ok(Collections.emptyList());
         } else {
-            return ResponseEntity.ok(matchingMovies);
+            return ResponseEntity.ok(matchingMovies.subList(start, end));
         }
     }
 
