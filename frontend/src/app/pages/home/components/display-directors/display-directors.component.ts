@@ -1,14 +1,12 @@
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { Component, OnInit, inject } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialog } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { Director } from '@core/interfaces/director';
 import { ApiDirectorService } from '@pages/home/services/api-director.service';
-import { Observable } from 'rxjs';
-import { ConfirmationDialogComponent } from '../confirmation-dialog/confirmation-dialog.component';
 
 @Component({
   selector: 'app-display-directors',
@@ -18,25 +16,30 @@ import { ConfirmationDialogComponent } from '../confirmation-dialog/confirmation
     MatIconModule,
     MatButtonModule,
     FormsModule,
-    ConfirmationDialogComponent,
-    HttpClientModule
+    ReactiveFormsModule,
   ],
   providers: [
     ApiDirectorService
   ],
   templateUrl: './display-directors.component.html',
   styleUrl: './display-directors.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  // changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class DisplayDirectorsComponent { 
+export class DisplayDirectorsComponent implements OnInit{ 
   show = false;
   filtered = false;
-  directors: Observable<Director[]>;
+  directors: Director[] = [];
   search: string;
+  page: number;
+  allPages: number = 4;
 
-  private dialog = inject(MatDialog)
-
+  private dialog = inject(MatDialog);
   api = inject(ApiDirectorService);
+
+  ngOnInit(): void {
+    this.page = 1;
+    this.getDirectors();
+  }
 
   showDirectors(){
     this.show = true;
@@ -46,74 +49,39 @@ export class DisplayDirectorsComponent {
     this.show = false;
   }
 
-  getDirectors(){
+  getDirectors() {
     this.search = "";
     this.filtered = false;
-    this.directors = new Observable;
-    this.directors = this.api.getDirectors()
+    this.directors = [];
+    this.api.getDirectors(this.page - 1).subscribe((res) => {
+      res.content.forEach((elem) => {
+        this.directors.push(elem);
+      });
+      this.allPages = res.totalPages;
+    });
     this.showDirectors();
+  }
+
+  getPreviousDirectors() {
+    this.page -= 1;
+    this.getDirectors();
+  }
+
+  getNextDirectors() {
+    console.log("next");
+    this.page += 1;
+    this.getDirectors();
   }
 
   getFilteredDirectors(){
     this.filtered = true;
-    this.directors = this.api.getFilteredDirectors(this.search);
-  }
-
-  addDirector(){
-    // const dialogRef = this.dialog.open(AddDirectorDialogComponent, {
-    //   minWidth: '400px',
-    //   minHeight: '300px',
-    // });
-
-    // dialogRef.afterClosed().pipe(
-    //   filter((res) => !!res),
-    // ).subscribe((res) => {
-    //   this.api.postDirector(res).subscribe(
-    //     (response) => {
-    //       let newDirector: Director = response;
-    //       this.directors.push(newDirector);
-    //     },);
-    // });
-  }
-
-  updateDirector(id: number, index: number){
-    // const dialogRef = this.dialog.open(AddDirectorDialogComponent, {
-    //   minWidth: '400px',
-    //   minHeight: '300px',
-    //   data:{
-    //     ...this.directors[index],
-    //     isEdit: true,
-    //   }
-    // });
-
-    // dialogRef.afterClosed().pipe(
-    //   filter((res) => !!res),
-    // ).subscribe((res) => {
-    //   this.api.putDirector(id, res).subscribe(
-    //     (response) => {
-    //       let newDirector: Director = response;
-    //       this.directors[index] = newDirector;
-    //       console.log('Film został zedytowany');
-    //     }
-    //   )
-    // });
-  }
-
-  deleteDirector(id: number, index: number){
-    // const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
-    //   minWidth: '200px',
-    //   minHeight: '100px',
-    // });
-
-    // dialogRef.afterClosed().pipe(
-    //   filter((res) => !!res),
-    // ).subscribe(() => {
-    //   this.api.deleteDirector(id).subscribe(
-    //     (response) => {
-    //       console.log('Film został usunięty');
-    //     },);
-    //   // this.directors.splice(index, 1);
-    //   this.getDirectors();
-    // });
+    this.directors = [];
+    this.page = 1;
+    this.api.getFilteredDirectors(this.search).subscribe((res) => {
+      res.content.forEach((elem) => {
+        this.directors.push(elem);
+      });
+      this.allPages = res.totalPages;
+    });    
   }
 }

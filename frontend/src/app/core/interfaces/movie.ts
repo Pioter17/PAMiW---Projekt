@@ -26,3 +26,16 @@ export interface MovieResponse {
   isSuccess: boolean;
   message: string;
 }
+
+export interface MoviePaginationResponse {
+  content: Movie[];
+  totalPages: number;
+  totalElements: number;
+  last: boolean;
+  size: number;
+  number: number;
+  sort: any;
+  numberOfElements: number;
+  first: boolean;
+  empty: boolean;
+}

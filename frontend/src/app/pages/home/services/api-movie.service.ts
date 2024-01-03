@@ -1,7 +1,7 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { ApiRoutes } from '@core/constants/api-routes.const';
-import { Movie, MovieDTO, MovieResponse } from '@core/interfaces/movie';
+import { Movie, MovieDTO, MoviePaginationResponse, MovieResponse } from '@core/interfaces/movie';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -10,14 +10,20 @@ import { Observable } from 'rxjs';
 export class ApiMovieService {
   private http = inject(HttpClient);
 
-  getFilteredMovies(name: string) : Observable<Movie[]> {
-    const params = (new HttpParams).append("name", name);
-
-    return this.http.get<Movie[]>(`${ApiRoutes.API_BASE_PATH}${ApiRoutes.SEARCH_MOVIES_ENDPOINT}`, {params});
+  getFilteredMovies(name: string, page: number = 0, size: number = 10): Observable<MoviePaginationResponse> {
+    const params = { name, page, size };
+  
+    return this.http.get<MoviePaginationResponse>(`${ApiRoutes.API_BASE_PATH}${ApiRoutes.SEARCH_MOVIES_ENDPOINT}`, { params });
+  }
+  
+  getMovies(page: number = 0, size: number = 10): Observable<MoviePaginationResponse> {
+    const params = { page, size };
+  
+    return this.http.get<MoviePaginationResponse>(`${ApiRoutes.API_BASE_PATH}${ApiRoutes.MOVIES_ENDPOINT}`, { params });
   }
 
-  getMovies() : Observable<Movie[]> {
-    return this.http.get<Movie[]>(`${ApiRoutes.API_BASE_PATH}${ApiRoutes.MOVIES_ENDPOINT}`);
+  getMovieById(movieId: number): Observable<Movie> {
+    return this.http.get<Movie>(`${ApiRoutes.API_BASE_PATH}${ApiRoutes.MOVIES_ENDPOINT}/${movieId}`);
   }
 
   postMovie(movie: MovieDTO) : Observable<MovieResponse> {

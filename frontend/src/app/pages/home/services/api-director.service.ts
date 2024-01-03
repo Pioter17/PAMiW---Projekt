@@ -1,7 +1,7 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { ApiRoutes } from '@core/constants/api-routes.const';
-import { Director } from '@core/interfaces/director';
+import { Director, DirectorPaginationResponse } from '@core/interfaces/director';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -10,25 +10,27 @@ import { Observable } from 'rxjs';
 export class ApiDirectorService {
   private http = inject(HttpClient);
 
-  getFilteredDirectors(name: string) : Observable<Director[]> {
-    const params = (new HttpParams).append("name", name);
+  // getFilteredDirectors(name: string) : Observable<Director[]> {
+  //   const params = (new HttpParams).append("name", name);
 
-    return this.http.get<Director[]>(`${ApiRoutes.API_BASE_PATH}${ApiRoutes.SEARCH_DIRECTORS_ENDPOINT}`, {params});
+  //   return this.http.get<Director[]>(`${ApiRoutes.API_BASE_PATH}${ApiRoutes.SEARCH_DIRECTORS_ENDPOINT}`, {params});
+  // }
+
+  // getDirectors() : Observable<Director[]> {
+  //   return this.http.get<Director[]>(`${ApiRoutes.API_BASE_PATH}${ApiRoutes.DIRECTORS_ENDPOINT}`);
+  // }
+
+  getDirectors(page: number = 0, size: number = 10): Observable<DirectorPaginationResponse> {
+    const params = new HttpParams()
+      .set('page', page.toString())
+      .set('size', size.toString());
+
+    return this.http.get<DirectorPaginationResponse>(`${ApiRoutes.API_BASE_PATH}${ApiRoutes.DIRECTORS_ENDPOINT}`, { params });
   }
 
-  getDirectors() : Observable<Director[]> {
-    return this.http.get<Director[]>(`${ApiRoutes.API_BASE_PATH}${ApiRoutes.DIRECTORS_ENDPOINT}`);
-  }
-
-  postDirector(director: Director) : Observable<Director> {
-    return this.http.post<Director>(`${ApiRoutes.API_BASE_PATH}${ApiRoutes.DIRECTORS_ENDPOINT}`, director)
-  }
-
-  putDirector(id: number, director: Director) : Observable<Director> {
-    return this.http.put<Director>(`${ApiRoutes.API_BASE_PATH}${ApiRoutes.DIRECTORS_ENDPOINT}` + "/" + id, director)
-  }
-
-  deleteDirector(id: number){
-    return this.http.delete<Director>(`${ApiRoutes.API_BASE_PATH}${ApiRoutes.DIRECTORS_ENDPOINT}` + "/" + id)
+  getFilteredDirectors(name: string, page: number = 0, size: number = 10): Observable<DirectorPaginationResponse> {
+    const params = { name, page, size };
+  
+    return this.http.get<DirectorPaginationResponse>(`${ApiRoutes.API_BASE_PATH}${ApiRoutes.SEARCH_DIRECTORS_ENDPOINT}`, { params });
   }
 }

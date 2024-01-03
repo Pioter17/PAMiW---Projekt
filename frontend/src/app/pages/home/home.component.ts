@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { Component } from '@angular/core';
 import { DisplayDirectorsComponent } from './components/display-directors/display-directors.component';
 import { DisplayMoviesComponent } from './components/display-movies/display-movies.component';
 

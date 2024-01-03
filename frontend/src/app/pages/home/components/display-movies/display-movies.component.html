@@ -1,69 +1,80 @@
 <div class="container">
     <button mat-button (click)="getMovies()" *ngIf="!show">Pokaż listę filmów</button>
     <button mat-button (click)="hideMovies()" *ngIf="show">Schowaj listę filmów</button>
-    <table
+    <div
       *ngIf="show"
-      class="movie__table"
-      border="1px solid black"
+      class="movie__wrapper"
     >
-      <tr>
-        <th>Tytuł</th>
-        <th>Reżyser</th>
-        <th>Producent</th>
-        <th>Długość</th>
-        <th>Ocena</th>
-        <th>
-            <form (submit)="getFilteredMovies()">
-                <input
-                    matInput
-                    name="search"
-                    [(ngModel)]="search"
-                >
-                <button mat-stroked-button type="submit">
-                    <mat-icon>
-                        search
-                    </mat-icon>
-                </button>
-            </form>
-        </th>
-      </tr>
-      @for (movie of displayedMovies; track $index) 
+    <div class="actions">
+      <div class="search">
+          <input
+            matInput
+            name="search"
+            [(ngModel)]="search"
+          >
+          <button mat-sdivoked-button (click)="getFilteredMovies()">
+            <span class="material-symbols-outlined">
+              search
+              </span>
+          </button>
+        </div>
+      <div class="paginator">
+        <button (click)="getPreviousMovies()" [disabled]="page === 1">
+          <span class="material-symbols-outlined">
+            arrow_back
+          </span>
+        </button>
+        {{ page }} / {{ allPages }}
+        <button (click)="getNextMovies()" [disabled]="page === allPages">
+          <span class="material-symbols-outlined">
+            arrow_forward
+          </span>
+        </button>
+      </div>
+      <div *ngIf="filtered" class="show__all">
+        <button mat-button (click)="getMovies()">
+          Wyświetl wszystkich
+        </button>
+      </div>
+      <div class="add">
+        <button mat-button (click)="addMovie()" class="add">
+          <span class="material-symbols-outlined">
+            add
+          </span>
+        </button>
+      </div>
+    </div>
+      @for (movie of movies; track $index) 
       {
-        <tr
-            class="data__row"
+        <div
+          class="movie"
         >
-            <td> {{ movie.name }} </td>
-            <td> {{ movie.director.name }} </td>
-            <td> {{ movie.producer }} </td>
-            <td> {{ movie.length }} </td>
-            <td> {{ movie.rating }} </td>
-            <td>
-                <button mat-button (click)="updateMovie(movie.id, $index)">
-                    <mat-icon>
-                        edit
-                    </mat-icon>
-                </button>
-                <button mat-button (click)="deleteMovie(movie.id, $index)">
-                    <mat-icon>
-                        delete
-                    </mat-icon>
-                </button>
-            </td>
-        </tr>
-    }
-      <tr class="last__row">
-        <td class="add__cell">
-          <button mat-button (click)="addMovie()" class="add">
-            <mat-icon>
-              add
-            </mat-icon>
+          <span class="info">
+            Imię: {{ movie.name }}
+          </span> 
+          <span>
+            Reżyser: {{ movie.director.name }}
+          </span>
+          <span>
+            Producent: {{ movie.producer }}
+          </span>
+          <span>
+            Długość: {{ movie.length }}
+          </span>
+          <span>
+            Ocena: {{ movie.rating }}
+          </span>
+          <button (click)="deleteMovie(movie.id, $index)">
+            <span class="material-symbols-outlined">
+              delete
+            </span>
           </button>
-        </td>
-        <td *ngIf="filtered">
-          <button mat-button (click)="getMovies()">
-            Wyświetl wszystkie
+          <button (click)="updateMovie(movie.id)">
+            <span class="material-symbols-outlined">
+              edit
+            </span>
           </button>
-        </td>
-      </tr>
-    </table>
+        </div>
+      } 
+    </div>
   </div>

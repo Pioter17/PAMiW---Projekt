@@ -1,15 +1,14 @@
 import { CommonModule } from '@angular/common';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
-import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { Router } from '@angular/router';
+import { PathRoutes } from '@core/constants/routes.const';
 import { Movie } from '@core/interfaces/movie';
 import { ApiMovieService } from '@pages/home/services/api-movie.service';
-import { Observable, filter } from 'rxjs';
-import { ConfirmationDialogComponent } from '../confirmation-dialog/confirmation-dialog.component';
 
 @Component({
   selector: 'app-display-movies',
@@ -20,7 +19,7 @@ import { ConfirmationDialogComponent } from '../confirmation-dialog/confirmation
     MatIconModule,
     MatButtonModule,
     FormsModule,
-    HttpClientModule
+    MatDialogModule
   ],
   providers: [
     ApiMovieService
@@ -29,16 +28,22 @@ import { ConfirmationDialogComponent } from '../confirmation-dialog/confirmation
   styleUrl: './display-movies.component.scss',
   // changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class DisplayMoviesComponent { 
+export class DisplayMoviesComponent implements OnInit{ 
   show = false;
   filtered = false;
-  movies: Movie[] = [];//Observable<Movie[]>;
-  displayedMovies: Movie[] = [];
+  movies: Movie[] = [];
   search: string;
+  page: number;
+  allPages: number = 4;
 
   private dialog = inject(MatDialog);
+  private api = inject(ApiMovieService);
+  private router = inject(Router);
 
-  api = inject(ApiMovieService);
+  ngOnInit(): void {
+    this.page = 1;
+    this.getMovies();
+  }
 
   showMovies(){
     this.show = true;
@@ -47,94 +52,56 @@ export class DisplayMoviesComponent {
   hideMovies(){
     this.show = false;
     this.movies = [];
-    this.displayedMovies = [];
   }
 
   getMovies(){
+    this.search = "";
+    this.movies = [];
     this.filtered = false;
-    this.api.getMovies().subscribe((res) => {
-      res.forEach((elem) => {
+    this.api.getMovies(this.page - 1).subscribe((res) => {
+      res.content.forEach((elem) => {
         this.movies.push(elem);
-      })
-      for(let i=0; i<10;i++){
-        this.displayedMovies.push(this.movies[i])
-      }
+      });
+      this.allPages = res.totalPages;
     })
     this.showMovies();
   }
 
   getFilteredMovies(){    
     this.movies = [];
-    this.displayedMovies = [];
     this.filtered = true;
+    this.page = 1;
     this.api.getFilteredMovies(this.search).subscribe((res) => {
-      res.forEach((elem) => {
+      res.content.forEach((elem) => {
         this.movies.push(elem);
-      })
-      for(let i=0; i<10;i++){
-        console.log(this.movies[i])
-        this.displayedMovies.push(this.movies[i])
-      }
+      });
+      this.allPages = res.totalPages;
     })
   }
 
-  addMovie(){
-    // const dialogRef = this.dialog.open(AddMovieDialogComponent, {
-    //   minWidth: '400px',
-    //   minHeight: '300px',
-    // });
-
-    // dialogRef.afterClosed().pipe(
-    //   filter((res) => !!res),
-    // ).subscribe((res) => {
-    //   this.api.postMovie(res).subscribe(
-    //     (response) => {
-    //       let newMovie: Movie = response.data;
-    //       this.movies.push(newMovie);
-    //       console.log('Film został dodany');
-    //     },);
-    // });
+  getPreviousMovies(){
+    this.page -= 1;
+    this.getMovies();
   }
 
-  updateMovie(id: number, index: number){
-    // const dialogRef = this.dialog.open(AddMovieDialogComponent, {
-    //   minWidth: '400px',
-    //   minHeight: '300px',
-    //   data:{
-    //     ...this.movies[index],
-    //     isEdit: true,
-    //   }
-    // });
+  getNextMovies(){
+    this.page += 1;
+    this.getMovies();
+  }
 
-    // dialogRef.afterClosed().pipe(
-    //   filter((res) => !!res),
-    // ).subscribe((res) => {
-    //   this.api.putMovie(id, res).subscribe(
-    //     (response : MovieResponse) => {
-    //       let newMovie: Movie = response.data;
-    //       console.log(newMovie)
-    //       this.displayedMovies[index] = newMovie;
-    //       console.log('Film został zedytowany');
-    //     }
-    //   )
-    // });
+  addMovie(){
+    this.router.navigateByUrl(`${PathRoutes.HOME}/${PathRoutes.ADD}/`);
+  }
+
+  updateMovie(id: number){
+    this.router.navigateByUrl(`${PathRoutes.HOME}/${PathRoutes.ADD}/${id}`);
   }
 
   deleteMovie(id: number, index: number){
-    const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
-      minWidth: '200px',
-      minHeight: '100px',
-    });
-
-    dialogRef.afterClosed().pipe(
-      filter((res) => !!res),
-    ).subscribe(() => {
-      this.api.deleteMovie(id).subscribe(
-        (response) => {
-          console.log('Film został usunięty');
-        },);
-        this.displayedMovies.splice(index, 1);
-    });
-    
+    this.api.deleteMovie(id).subscribe(
+      (response) => {
+        console.log('Film został usunięty');
+      },);
+      this.movies.splice(index, 1);
   }
 }
