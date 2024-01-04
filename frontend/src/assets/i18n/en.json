@@ -1,0 +1,32 @@
+{
+    "language": "Change language",
+    "logged": "Logged in as",
+    "logout": "Logout",
+    "displayMovies": {
+        "showAll": "Show all",
+        "show": "Show movie list",
+        "hide": "Hide movie list",
+        "name": "Name: ",
+        "director": "Director: ",
+        "producer": "Producer: ",
+        "length": "Length: ",
+        "rating": "Rating: ",
+        "addEdit": {
+            "add": "Add",
+            "edit": "Edit",
+            "movie": "Movie",
+            "required": "Required",
+            "ratingRequired": "Required value in the range from 1 to 10",
+            "lengthRequired": "Required value greater than or equal to 1",
+            "cancel": "Cancel"
+        }
+    },
+    "displayDirectors": {
+        "showAll": "Show all",
+        "show": "Show directors",
+        "hide": "Hide directors",
+        "name": "Name: ",
+        "nationality": "Nationality: ",
+        "age": "Age: "
+    }
+}

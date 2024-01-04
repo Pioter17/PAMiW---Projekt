@@ -8,6 +8,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { Router } from '@angular/router';
 import { PathRoutes } from '@core/constants/routes.const';
 import { Movie } from '@core/interfaces/movie';
+import { TranslocoModule } from '@ngneat/transloco';
 import { ApiMovieService } from '@pages/home/services/api-movie.service';
 
 @Component({
@@ -19,7 +20,8 @@ import { ApiMovieService } from '@pages/home/services/api-movie.service';
     MatIconModule,
     MatButtonModule,
     FormsModule,
-    MatDialogModule
+    MatDialogModule,
+    TranslocoModule
   ],
   providers: [
     ApiMovieService

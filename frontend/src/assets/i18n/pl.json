@@ -1,0 +1,33 @@
+{
+    "language": "Zmień język",
+    "logged": "Zalogowany jako",
+    "logout": "Wyloguj",
+    "displayMovies": {
+        "showAll": "Wyświetl wszystkie",
+        "show": "Pokaż listę filmów",
+        "hide": "Schowaj listę filmów",
+        "name": "Nazwa: ",
+        "director": "Reżyser: ",
+        "producer": "Producent: ",
+        "length": "Długość: ",
+        "rating": "Ocena: ",
+        "addEdit": {
+            "add": "Dodaj",
+            "edit": "Edytuj",
+            "movie": "Film",
+            "required": "Wymagane",
+            "ratingRequired": "Wymagana wartość w zakresie od 1 do 10",
+            "lengthRequired": "Wymagana wartość większa lub równa 1",
+            "cancel": "Anuluj"
+        }
+    },
+    "displayDirectors": {
+        "showAll": "Wyświetl wszystkich",
+        "show": "Pokaż reżyserów",
+        "hide": "Schowaj reżyserów",
+        "name": "Imię: ",
+        "nationality": "Narodowość: ",
+        "age": "Wiek: "
+    }
+    
+}

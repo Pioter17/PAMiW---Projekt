@@ -6,6 +6,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatDialog } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { Director } from '@core/interfaces/director';
+import { TranslocoModule } from '@ngneat/transloco';
 import { ApiDirectorService } from '@pages/home/services/api-director.service';
 
 @Component({
@@ -17,6 +18,7 @@ import { ApiDirectorService } from '@pages/home/services/api-director.service';
     MatButtonModule,
     FormsModule,
     ReactiveFormsModule,
+    TranslocoModule
   ],
   providers: [
     ApiDirectorService

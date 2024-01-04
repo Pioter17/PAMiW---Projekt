@@ -12,9 +12,11 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { PathRoutes } from '@core/constants/routes.const';
 import { Director } from '@core/interfaces/director';
 import { MovieDTO, MovieDialogData } from '@core/interfaces/movie';
+import { TranslocoModule } from '@ngneat/transloco';
 import { ApiDirectorService } from '@pages/home/services/api-director.service';
 import { ApiMovieService } from '@pages/home/services/api-movie.service';
 import { MovieFormCreatorService } from '@pages/home/services/movie-form-creator.service';
+import { LayoutComponent } from '@pages/layout/layout.component';
 import { isEqual } from 'lodash';
 import { Observable, map, merge, of } from 'rxjs';
 
@@ -30,7 +32,9 @@ import { Observable, map, merge, of } from 'rxjs';
     MatOptionModule,
     MatDialogActions,
     MatSelectModule,
-    MatInputModule
+    MatInputModule,
+    TranslocoModule,
+    LayoutComponent
   ],
   providers: [
     MovieFormCreatorService,

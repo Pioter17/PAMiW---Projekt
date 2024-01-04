@@ -1,0 +1,11 @@
+<ng-container *transloco="let t">
+    <button (click)="changeLanguage()">
+        {{ t('language') }}
+    </button>
+    <h2>
+        {{ t('logged') }} {{ name }}
+    </h2>
+    <button>
+        {{ t('logout') }}
+    </button> 
+</ng-container>
