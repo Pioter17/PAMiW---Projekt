@@ -4,4 +4,5 @@ export const ApiRoutes = {
   MOVIES_ENDPOINT: '/movies',
   SEARCH_DIRECTORS_ENDPOINT: '/directors/search?',
   DIRECTORS_ENDPOINT: '/directors',
+  ALL_DIRECTORS_ENDPOINT: '/directors/all',
 }

@@ -1,5 +1,14 @@
 :host {
   display: block;
+  margin: auto;
+  width: 400px;
+  margin-top: 40px;
+  border: 2px solid green;
+  border-radius: 20px;
+}
+
+.title {
+  text-align: center;
 }
 
 .add__movie__form {

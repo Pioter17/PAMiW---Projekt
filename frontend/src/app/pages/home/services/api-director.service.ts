@@ -10,15 +10,9 @@ import { Observable } from 'rxjs';
 export class ApiDirectorService {
   private http = inject(HttpClient);
 
-  // getFilteredDirectors(name: string) : Observable<Director[]> {
-  //   const params = (new HttpParams).append("name", name);
-
-  //   return this.http.get<Director[]>(`${ApiRoutes.API_BASE_PATH}${ApiRoutes.SEARCH_DIRECTORS_ENDPOINT}`, {params});
-  // }
-
-  // getDirectors() : Observable<Director[]> {
-  //   return this.http.get<Director[]>(`${ApiRoutes.API_BASE_PATH}${ApiRoutes.DIRECTORS_ENDPOINT}`);
-  // }
+  getAllDirectors() : Observable<Director[]> {
+    return this.http.get<Director[]>(`${ApiRoutes.API_BASE_PATH}${ApiRoutes.ALL_DIRECTORS_ENDPOINT}`);
+  }
 
   getDirectors(page: number = 0, size: number = 10): Observable<DirectorPaginationResponse> {
     const params = new HttpParams()

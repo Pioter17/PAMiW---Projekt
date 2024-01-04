@@ -1,9 +1,9 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, Inject, OnInit, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit, inject } from '@angular/core';
 import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatOptionModule } from '@angular/material/core';
-import { MAT_DIALOG_DATA, MatDialogActions } from '@angular/material/dialog';
+import { MatDialogActions } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
@@ -11,7 +11,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PathRoutes } from '@core/constants/routes.const';
 import { Director } from '@core/interfaces/director';
-import { MovieDialogData } from '@core/interfaces/movie';
+import { MovieDTO, MovieDialogData } from '@core/interfaces/movie';
 import { ApiDirectorService } from '@pages/home/services/api-director.service';
 import { ApiMovieService } from '@pages/home/services/api-movie.service';
 import { MovieFormCreatorService } from '@pages/home/services/movie-form-creator.service';
@@ -45,7 +45,7 @@ export class AddMovieComponent implements OnInit{
   form: FormGroup;
   isEdit: boolean;
   directors: Director[] = [];
-  id: number | undefined;
+  id: any;
 
   private movieFormCreatorService = inject(MovieFormCreatorService);
   private apiDirectorService = inject(ApiDirectorService);
@@ -56,32 +56,40 @@ export class AddMovieComponent implements OnInit{
 
   ngOnInit() {
     this.route.params.subscribe(params => {
-      const id = +this.route.snapshot.params['id'];
-      console.log(id)
-      this.apiDirectorService.getDirectors().subscribe((res) => {
-        res.content.forEach((elem) => {
-          this.directors.push(elem);
-        })
-      })
+      const idParam = params['id?'];
+      this.id = idParam!=="" ? +idParam : undefined; 
+  
+      this.apiDirectorService.getAllDirectors().subscribe((res) => {
+        this.directors = res;  
+      });
+  
       this.form = this.movieFormCreatorService.getMovieForm();
-      if(this.id != undefined) {
-        this.api.getMovieById(this.id).subscribe((res)=>{
-          this.form.patchValue(res);
+      
+      if (this.id !== undefined) {
+        this.api.getMovieById(this.id).subscribe((res) => {
+          let data: MovieDTO = {
+            name: res.name,
+            director_id: res.director.id,
+            producer: res.producer,
+            length: res.length,
+            rating: res.rating,
+          }
+          this.form.patchValue(data);
           this.isEdit = true;
           if (this.isEdit) {
-            const { ...response } = res
+            const { ...response } = res;
             this.isSame$ = merge(
-              of(true), this.form.valueChanges.pipe(
+              of(true),
+              this.form.valueChanges.pipe(
                 map(() => isEqual(response, this.form.value)),
-              ))
+              )
+            );
           } else {
             this.isSame$ = of(false);
           }
-        })
-        
+        });
       }
     });
-    
   }
 
   onAddClose() {
@@ -96,16 +104,15 @@ export class AddMovieComponent implements OnInit{
     };
 
     this.form.reset();
-    if (true) {
+    if (this.id === undefined) {
       this.api.postMovie(newMovie).subscribe(()=>{
         this.router.navigateByUrl(PathRoutes.HOME);
       });
     } else {
-      // this.api.putMovie(this.id, newMovie).subscribe(()=>{
-      //   this.router.navigateByUrl(PathRoutes.HOME);
-      // });
+      this.api.putMovie(this.id, newMovie).subscribe(()=>{
+        this.router.navigateByUrl(PathRoutes.HOME);
+      });
     }
-    // this.dialogRef.close(newMovie);
   }
 
   onCancelClose() {

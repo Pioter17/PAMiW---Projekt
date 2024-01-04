@@ -68,7 +68,6 @@ export class DisplayDirectorsComponent implements OnInit{
   }
 
   getNextDirectors() {
-    console.log("next");
     this.page += 1;
     this.getDirectors();
   }
