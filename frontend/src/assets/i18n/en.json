@@ -1,5 +1,6 @@
 {
     "language": "Change language",
+    "theme": "Change color",
     "logged": "Logged in as",
     "logout": "Logout",
     "displayMovies": {

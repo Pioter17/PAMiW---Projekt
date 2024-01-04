@@ -4,9 +4,7 @@ import { ApiRoutes } from '@core/constants/api-routes.const';
 import { Director, DirectorPaginationResponse } from '@core/interfaces/director';
 import { Observable } from 'rxjs';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class ApiDirectorService {
   private http = inject(HttpClient);
 

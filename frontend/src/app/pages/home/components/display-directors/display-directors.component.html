@@ -1,57 +1,60 @@
-<div class="container" *transloco="let t; read: 'displayDirectors'">
-  <button mat-button (click)="getDirectors()" *ngIf="!show"> {{t('show')}} </button>
-  <button mat-button (click)="hideDirectors()" *ngIf="show">{{t('hide')}}</button>
-  <div
-    *ngIf="show"
-    class="director__wrapper"
-  >
-  <div class="actions">
-    <div class="search">
+<ng-container *transloco="let t; read: 'displayDirectors'">
+  <div class="container">
+    <button class="btn btn-outline-info" (click)="getDirectors()" *ngIf="!show"> {{t('show')}} </button>
+    <button class="btn btn-outline-info" (click)="hideDirectors()" *ngIf="show">{{t('hide')}}</button>
+    <div
+      *ngIf="show"
+      class="director__wrapper"
+    >
+    <div class="actions">
+      <div class="search">
         <input
           matInput
+          class="form-control"
           name="search"
           [(ngModel)]="search"
         >
-        <button mat-sdivoked-button (click)="getFilteredDirectors()">
+        <button class="btn btn-primary" (click)="getFilteredDirectors()">
           <span class="material-symbols-outlined">
             search
             </span>
         </button>
       </div>
-    <div class="paginator">
-      <button (click)="getPreviousDirectors()" [disabled]="page === 1">
-        <span class="material-symbols-outlined">
-          arrow_back
-        </span>
-      </button>
-      {{ page }} / {{ allPages }}
-      <button (click)="getNextDirectors()" [disabled]="page === allPages">
-        <span class="material-symbols-outlined">
-          arrow_forward
-        </span>
-      </button>
-    </div>
-    <div *ngIf="filtered" class="show__all">
-      <button mat-button (click)="getDirectors()">
-        {{t('showAll')}}
-      </button>
-    </div>
-  </div>
-    @for (director of directors; track $index) 
-    {
-      <div
-        class="director"
-      >
-        <span class="info">
-          {{t('name')}} {{ director.name }}
-        </span> 
-        <span>
-          {{t('nationality')}} {{ director.nationality }} 
-        </span>
-        <span>
-          {{t('age')}} {{ director.age }} 
-        </span>
+      <div class="paginator">
+        <button class="btn btn-primary" (click)="getPreviousDirectors()" [disabled]="page === 1">
+          <span class="material-symbols-outlined">
+            arrow_back
+          </span>
+        </button>
+        {{ page }} / {{ allPages }}
+        <button class="btn btn-primary" (click)="getNextDirectors()" [disabled]="page === allPages">
+          <span class="material-symbols-outlined">
+            arrow_forward
+          </span>
+        </button>
       </div>
-    } 
+      <div *ngIf="filtered" class="show__all">
+        <button class="btn btn-outline-info" (click)="getDirectors()">
+          {{t('showAll')}}
+        </button>
+      </div>
+    </div>
+      @for (director of directors; track $index) 
+      {
+        <div
+          class="director"
+        >
+          <span class="info">
+            {{t('name')}} {{ director.name }}
+          </span> 
+          <span>
+            {{t('nationality')}} {{ director.nationality }} 
+          </span>
+          <span>
+            {{t('age')}} {{ director.age }} 
+          </span>
+        </div>
+      } 
+    </div>
   </div>
-</div>
+</ng-container>

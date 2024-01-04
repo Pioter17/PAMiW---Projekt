@@ -31,13 +31,30 @@
 
 .actions {
   display: flex;
+  flex-direction: column;
   margin: auto;
+  
+  button {
+    margin: 5px;
+  }
 }
 
 .search {
   width: auto;
+  display: flex;
 }
 
 .paginator {
   width: auto;
 }
+
+button {
+  margin: 5px;
+}
+
+.oncard {
+  width: 50%;
+  margin: auto;
+  margin-top: 5px;
+}
+

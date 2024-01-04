@@ -1,80 +1,81 @@
-<div class="container" *transloco="let t; read: 'displayMovies'">
-  <button mat-button (click)="getMovies()" *ngIf="!show">{{t('show')}}</button>
-  <button mat-button (click)="hideMovies()" *ngIf="show">{{t('hide')}}</button>
-  <div
-    *ngIf="show"
-    class="movie__wrapper"
-  >
-  <div class="actions">
-    <div class="search">
+<ng-container *transloco="let t; read: 'displayMovies'">
+  <div class="container">
+    <button class="btn btn-outline-info" (click)="getMovies()" *ngIf="!show">{{t('show')}}</button>
+    <button class="btn btn-outline-info" (click)="hideMovies()" *ngIf="show">{{t('hide')}}</button>
+    <div
+      *ngIf="show"
+      class="movie__wrapper"
+    >
+    <div class="actions">
+      <div class="search">
         <input
+          class="form-control"
           matInput
           name="search"
           [(ngModel)]="search"
         >
-        <button mat-sdivoked-button (click)="getFilteredMovies()">
+        <button class="btn btn-primary" (click)="getFilteredMovies()">
           <span class="material-symbols-outlined">
             search
+          </span>
+        </button>
+        <button (click)="addMovie()" class="add btn btn-outline-secondary">
+          <span class="material-symbols-outlined">
+            add
+          </span>
+        </button>
+      </div>
+      <div class="paginator">
+        <button class="btn btn-primary" (click)="getPreviousMovies()" [disabled]="page === 1">
+          <span class="material-symbols-outlined">
+            arrow_back
+          </span>
+        </button>
+        {{ page }} / {{ allPages }}
+        <button class="btn btn-primary" (click)="getNextMovies()" [disabled]="page === allPages">
+          <span class="material-symbols-outlined">
+            arrow_forward
+          </span>
+        </button>
+      </div>
+      <div *ngIf="filtered" class="show__all">
+        <button class="btn btn-outline-info" (click)="getMovies()">
+          {{t('showAll')}}
+        </button>
+      </div>
+    </div>
+      @for (movie of movies; track $index) 
+      {
+        <div
+          class="movie"
+        >
+          <span class="info">
+            {{t('name')}} {{ movie.name }}
+          </span> 
+          <span>
+            {{t('director')}} {{ movie.director.name }}
+          </span>
+          <span>
+            {{t('producer')}} {{ movie.producer }}
+          </span>
+          <span>
+            {{t('length')}} {{ movie.length }}
+          </span>
+          <span>
+            {{t('rating')}} {{ movie.rating }}
+          </span>
+          <button (click)="deleteMovie(movie.id, $index)" class="oncard btn btn-outline-secondary">
+            <span class="material-symbols-outlined">
+              delete
             </span>
-        </button>
-      </div>
-    <div class="paginator">
-      <button (click)="getPreviousMovies()" [disabled]="page === 1">
-        <span class="material-symbols-outlined">
-          arrow_back
-        </span>
-      </button>
-      {{ page }} / {{ allPages }}
-      <button (click)="getNextMovies()" [disabled]="page === allPages">
-        <span class="material-symbols-outlined">
-          arrow_forward
-        </span>
-      </button>
-    </div>
-    <div *ngIf="filtered" class="show__all">
-      <button mat-button (click)="getMovies()">
-        {{t('showAll')}}
-      </button>
-    </div>
-    <div class="add">
-      <button mat-button (click)="addMovie()" class="add">
-        <span class="material-symbols-outlined">
-          add
-        </span>
-      </button>
+          </button>
+          <button (click)="updateMovie(movie.id)" class="oncard btn btn-outline-secondary">
+            <span class="material-symbols-outlined">
+              edit
+            </span>
+          </button>
+        </div>
+      } 
     </div>
   </div>
-    @for (movie of movies; track $index) 
-    {
-      <div
-        class="movie"
-      >
-        <span class="info">
-          {{t('name')}} {{ movie.name }}
-        </span> 
-        <span>
-          {{t('director')}} {{ movie.director.name }}
-        </span>
-        <span>
-          {{t('producer')}} {{ movie.producer }}
-        </span>
-        <span>
-          {{t('length')}} {{ movie.length }}
-        </span>
-        <span>
-          {{t('rating')}} {{ movie.rating }}
-        </span>
-        <button (click)="deleteMovie(movie.id, $index)">
-          <span class="material-symbols-outlined">
-            delete
-          </span>
-        </button>
-        <button (click)="updateMovie(movie.id)">
-          <span class="material-symbols-outlined">
-            edit
-          </span>
-        </button>
-      </div>
-    } 
-  </div>
-</div>
+</ng-container>

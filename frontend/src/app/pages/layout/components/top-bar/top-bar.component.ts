@@ -1,6 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { ThemeChangerService } from '@core/services/theme-changer.service';
 import { TranslocoModule, TranslocoService } from '@ngneat/transloco';
+import { isNumberObject } from 'util/types';
 
 @Component({
   selector: 'app-top-bar',
@@ -15,16 +17,22 @@ import { TranslocoModule, TranslocoService } from '@ngneat/transloco';
 })
 export class TopBarComponent { 
   name = "Piotrek";
+  lightMode = true;
 
   translocoService = inject(TranslocoService);
+  themeChangerService = inject(ThemeChangerService);
 
   changeLanguage() {
-    this.translocoService.getActiveLang()
-    if (this.translocoService.getActiveLang() == "pl")
-    {
-      this.translocoService.setActiveLang("en");
-    } else {
-      this.translocoService.setActiveLang("pl");
-    }
+    this.translocoService.setActiveLang(this.translocoService.getActiveLang() == "pl" ? "en" : "pl");
+    // if (this.translocoService.getActiveLang() == "pl")
+    // {
+    //   this.translocoService.setActiveLang("en");
+    // } else {
+    //   this.translocoService.setActiveLang("pl");
+    // }
+  }
+
+  changeTheme() {
+    this.themeChangerService.changeTheme();
   }
 }

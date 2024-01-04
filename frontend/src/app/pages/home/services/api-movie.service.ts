@@ -4,9 +4,7 @@ import { ApiRoutes } from '@core/constants/api-routes.const';
 import { Movie, MovieDTO, MoviePaginationResponse, MovieResponse } from '@core/interfaces/movie';
 import { Observable } from 'rxjs';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class ApiMovieService {
   private http = inject(HttpClient);
 

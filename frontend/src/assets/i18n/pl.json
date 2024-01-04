@@ -1,5 +1,6 @@
 {
     "language": "Zmień język",
+    "theme": "Zmień kolor",
     "logged": "Zalogowany jako",
     "logout": "Wyloguj",
     "displayMovies": {
@@ -28,6 +29,12 @@
         "name": "Imię: ",
         "nationality": "Narodowość: ",
         "age": "Wiek: "
+    },
+    "loginForm":{
+        "name": "Nazwa:",
+        "password": "Hasło",
+        "login": "Zaloguj",
+        "registerLink": "Nie masz konta? Zarejestruj się!",
+        "required": "Wymagane"
     }
-    
 }
