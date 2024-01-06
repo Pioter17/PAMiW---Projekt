@@ -1,0 +1,104 @@
+﻿@page "/movies"
+
+@inject MovieService MovieService
+@inject NavigationManager NavigationManager
+
+<PageTitle>Movies</PageTitle>
+
+<h3>Full list of movies</h3>
+
+@if (movies == null)
+{
+    <p><em>@message</em></p>
+}
+
+else
+{
+    @if (movies.Count == 0)
+    {
+        <p><em>"Wystąpił błąd"</em></p>
+    }
+    <div>
+        <InputText @bind-Value=searchTerm></InputText>
+        <button class="btn btn-primary" @onclick=Search>Search</button>
+        <button class="btn btn-primary" @onclick="()=> GoToCreate()">Create</button>
+    </div>
+    @foreach (var movie in movies)
+    {
+        <div class="card mb-4">
+            <div class="card-body">
+                <h5 class="card-title">Name: @movie.name</h5>
+                <p class="card-text">Director: @movie.director.name</p>
+                <p class="card-text">Producer: @movie.producer</p>
+                <p class="card-text">Rating: @movie.rating</p>
+                <p class="card-text">Length: @movie.length</p>
+                <button class="btn btn-primary" @onclick="()=> GoToEdit(movie.name)">Edit</button>
+            </div>
+        </div>
+    }
+
+    <button class="btn btn-primary" disabled="@(currentPage==1)" @onclick="PreviousPage">Previous</button>
+    <span>@currentPage</span>
+    <button class="btn btn-primary" disabled="@(currentPage==totalPages)" @onclick="NextPage">Next</button>
+}
+
+
+
+@code {
+    private List<Shared.Models.Movie> movies;
+    private string message = "Loading movies...";
+
+    private int currentPage = 1;
+    private int totalPages;
+    private string searchTerm = "";
+
+    protected override async Task OnInitializedAsync()
+    {
+        await LoadMovies();
+    }
+
+    private async Task LoadMovies()
+    {
+        var response = await MovieService.GetMoviesAsync(currentPage);
+        if(response != null)
+        {
+            movies = response.Content;
+            totalPages = response.TotalPages;
+        }
+    }
+
+    void GoToEdit(string name)
+    {
+        NavigationManager.NavigateTo($"/movies/editmovie/{name}");
+    }
+
+    void GoToCreate()
+    {
+        NavigationManager.NavigateTo($"/movies/createmovie");
+    }
+
+    private async Task PreviousPage()
+    {
+        if (currentPage > 1)
+        {
+            currentPage--;
+            await LoadMovies();
+        }
+    }
+    private async Task NextPage()
+    {
+        currentPage++;
+        await LoadMovies();
+    }
+
+    private async Task Search()
+    {
+        currentPage = 1;
+        var response = await MovieService.SearchMoviesAsync(searchTerm, currentPage);
+        if (response != null)
+        {
+            movies = response.Content;
+            totalPages = response.TotalPages;
+        }
+    }
+}

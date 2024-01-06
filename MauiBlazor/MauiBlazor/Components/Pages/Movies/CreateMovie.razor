@@ -1,0 +1,28 @@
+﻿@page "/movies/createmovie"
+
+@inject MovieService MovieService
+@inject NavigationManager NavigationManager
+
+<h3>Create Product</h3>
+
+@if (message != null)
+{
+    <p><em>@message</em></p>
+}
+else
+{
+    <MovieForm movie="movie" OnValidSubmit="HandleValidSubmit"></MovieForm>
+}
+
+@code {
+    private MovieDTO movie = new MovieDTO();
+    private string? message = null;
+
+    async Task HandleValidSubmit()
+    {
+        var response = await MovieService.CreateMovieAsync(movie);
+        NavigationManager.NavigateTo("/movies");
+    }
+
+
+}

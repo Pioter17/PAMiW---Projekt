@@ -1,0 +1,54 @@
+﻿@page "/movies/editmovie/{name}"
+
+@inject MovieService MovieService
+@inject NavigationManager NavigationManager
+
+<h3>Edit Movie</h3>
+
+@if (movieDTO == null)
+{
+    <p><em>@message</em></p>
+}
+else
+{
+    <MovieForm movie="movieDTO" OnValidSubmit="HandleValidSubmit"></MovieForm>
+    <button class="btn btn-danger" @onclick=HandleDelete>Delete</button>
+}
+
+
+
+@code {
+    [Parameter]
+    public string name { get; set; }
+
+    private Movie movie;
+    private MovieDTO movieDTO;
+    private string message = "Loading movie...";
+
+    protected override async Task OnInitializedAsync()
+    {
+        var response = await MovieService.SearchMoviesAsync(name, 1);
+        movie = response.Content[0];
+
+        movieDTO = new MovieDTO
+            {
+                name = movie.name,
+                director_id = movie.director.id,
+                producer = movie.producer,
+                rating = movie.rating,
+                length = movie.length
+            };
+    }
+
+    async Task HandleValidSubmit()
+    {
+        var response = await MovieService.UpdateMovieAsync(movie.id, movieDTO);
+        NavigationManager.NavigateTo("/movies");
+    }
+
+    async Task HandleDelete()
+    {
+        var response = await MovieService.DeleteMovieAsync(movie.id);
+        NavigationManager.NavigateTo("/movies");
+    }
+}

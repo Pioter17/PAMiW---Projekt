@@ -1,0 +1,90 @@
+﻿@page "/directors"
+
+@inject DirectorService DirectorService
+@inject NavigationManager NavigationManager
+
+<PageTitle>Directors</PageTitle>
+
+<h3>Full list of directors</h3>
+@if (directors == null)
+{
+    <p><em>@message</em></p>
+}
+
+else
+{
+    @if (directors.Count == 0)
+    {
+        <p><em>"Wystąpił błąd"</em></p>
+    }
+    <div>
+        <InputText @bind-Value=searchTerm></InputText>
+        <button class="btn btn-primary" @onclick=Search>Search</button>
+    </div>
+    @foreach (var director in directors)
+    {
+        <div class="card mb-4">
+            <div class="card-body">
+                <h5 class="card-title">Name: @director.name</h5>
+                <p class="card-text">Nationality: @director.nationality</p>
+                <p class="card-text">Age: @director.age</p>
+                <p class="card-text">Id: @director.id</p>
+            </div>
+        </div>
+    }
+
+    <button class="btn btn-primary" disabled="@(currentPage==1)" @onclick="PreviousPage">Previous</button>
+    <span>@currentPage</span>
+    <button class="btn btn-primary" disabled="@(currentPage==totalPages)" @onclick="NextPage">Next</button>
+}
+
+
+
+@code {
+    private List<Shared.Models.Director> directors;
+    private string message = "Loading directors...";
+
+    private int currentPage = 1;
+    private int totalPages;
+    private string searchTerm = "";
+
+    protected override async Task OnInitializedAsync()
+    {
+        await LoadDirectors();
+    }
+
+    private async Task LoadDirectors()
+    {
+        var response = await DirectorService.GetDirectorsAsync(currentPage);
+        if(response != null)
+        {
+            directors = response.Content;
+            totalPages = response.TotalPages;
+        }
+    }
+
+    private async Task PreviousPage()
+    {
+        if (currentPage > 1)
+        {
+            currentPage--;
+            await LoadDirectors();
+        }
+    }
+    private async Task NextPage()
+    {
+        currentPage++;
+        await LoadDirectors();
+    }
+
+    private async Task Search()
+    {
+        currentPage = 1;
+        var response = await DirectorService.SearchDirectorsAsync(searchTerm, currentPage);
+        if (response != null)
+        {
+            directors = response.Content;
+            totalPages = response.TotalPages;
+        }
+    }
+}

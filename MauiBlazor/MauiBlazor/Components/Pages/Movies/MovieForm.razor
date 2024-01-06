@@ -1,0 +1,36 @@
+﻿<EditForm Model="movie" OnValidSubmit="OnValidSubmit">
+    <DataAnnotationsValidator />
+
+    <div class="form-group">
+        <label for="name">Name:</label>
+        <InputText id="name" @bind-Value="movie.name" class="form-control"></InputText>
+    </div>
+    <div class="form-group">
+        <label for="director_id">Director:</label>
+        <InputNumber id="dname" @bind-Value="movie.director_id" class="form-control"></InputNumber>
+    </div>
+    <div class="form-group">
+        <label for="producer">Producer:</label>
+        <InputText id="producer" @bind-Value="movie.producer" class="form-control"></InputText>
+    </div>
+    <div class="form-group">
+        <label for="rating">Rating:</label>
+        <InputNumber id="rating" @bind-Value="movie.rating" class="form-control"></InputNumber>
+    </div>
+    <div class="form-group">
+        <label for="length">Length:</label>
+        <InputNumber id="length" @bind-Value="movie.length" class="form-control"></InputNumber>
+    </div>
+    <button type="submit" class="btn btn-primary">Update</button>
+</EditForm>
+
+
+@code {
+
+    [Parameter]
+    public MovieDTO movie { get; set; }
+
+    [Parameter]
+    public EventCallback OnValidSubmit { get; set; }
+
+}

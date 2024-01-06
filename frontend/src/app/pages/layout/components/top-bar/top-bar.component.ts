@@ -24,12 +24,6 @@ export class TopBarComponent {
 
   changeLanguage() {
     this.translocoService.setActiveLang(this.translocoService.getActiveLang() == "pl" ? "en" : "pl");
-    // if (this.translocoService.getActiveLang() == "pl")
-    // {
-    //   this.translocoService.setActiveLang("en");
-    // } else {
-    //   this.translocoService.setActiveLang("pl");
-    // }
   }
 
   changeTheme() {
