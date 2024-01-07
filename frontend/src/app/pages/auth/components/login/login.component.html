@@ -1,8 +1,7 @@
 <ng-container *transloco="let t; read: 'loginForm'">
     <form
-    [formGroup]="form"
+        [formGroup]="form"
     >
-        <
         <label> {{t('name')}} </label>
         <input
             formControlName="name"
@@ -10,8 +9,14 @@
         >
         <label> {{t('password')}} </label>
         <input
-            formControlName="name"
+            formControlName="password"
             type="password"
         >
+        <button (click)="login()">
+            {{ t('login') }}
+        </button>
+        <a href="auth/register">
+            {{ t('registerLink') }}
+        </a>
     </form>
 </ng-container>

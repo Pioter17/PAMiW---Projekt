@@ -33,8 +33,11 @@
     "loginForm":{
         "name": "Nazwa:",
         "password": "Hasło",
+        "email": "Adres e-mail",
         "login": "Zaloguj",
+        "loginLink": "Masz już konto? Zaloguj się",
         "registerLink": "Nie masz konta? Zarejestruj się!",
+        "register": "Zarejestruj",
         "required": "Wymagane"
     }
 }
