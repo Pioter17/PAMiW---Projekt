@@ -13,6 +13,7 @@ export class AuthorizationGuardGuard  {
     private router: Router,
     private userService: UserService
   ) { }
+  
   canLoad(route: Route, segments: UrlSegment[]): boolean | UrlTree | Observable<boolean | UrlTree> | Promise<boolean | UrlTree> {
     const url = segments.map((segment) => segment.path).join("/");
     if (this.userService.isAuthenticated())
@@ -26,7 +27,7 @@ export class AuthorizationGuardGuard  {
     if (this.userService.isAuthenticated())
       return true;
     else {
-      console.log("canactivate router");
+      console.log("cantctivate router");
       return this.router.createUrlTree([PathRoutes.AUTH]);
     }
   }

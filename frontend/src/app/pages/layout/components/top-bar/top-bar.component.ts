@@ -1,6 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { AuthService } from '@core/services/auth.service';
 import { ThemeChangerService } from '@core/services/theme-changer.service';
+import { UserService } from '@core/services/user.service';
 import { TranslocoModule, TranslocoService } from '@ngneat/transloco';
 import { isNumberObject } from 'util/types';
 
@@ -10,6 +12,9 @@ import { isNumberObject } from 'util/types';
   imports: [
     CommonModule,
     TranslocoModule
+  ],
+  providers: [
+    AuthService
   ],
   templateUrl: './top-bar.component.html',
   styleUrl: './top-bar.component.scss',
@@ -21,6 +26,8 @@ export class TopBarComponent {
 
   translocoService = inject(TranslocoService);
   themeChangerService = inject(ThemeChangerService);
+  authService = inject(AuthService);
+  userService = inject(UserService);
 
   changeLanguage() {
     this.translocoService.setActiveLang(this.translocoService.getActiveLang() == "pl" ? "en" : "pl");
@@ -28,5 +35,11 @@ export class TopBarComponent {
 
   changeTheme() {
     this.themeChangerService.changeTheme();
+  }
+
+  logout() {
+    this.authService.logout().subscribe(()=>{
+      this.userService.logout();
+    })
   }
 }

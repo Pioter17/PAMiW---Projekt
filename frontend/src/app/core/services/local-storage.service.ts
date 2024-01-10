@@ -1,19 +1,29 @@
-import { Injectable } from '@angular/core';
+import { Inject, Injectable, InjectionToken } from '@angular/core';
 
 import { KeyStorage } from '../enums/key-storage.enum';
 import { Nullable } from '../interfaces/nullable';
+
+export const BROWSER_STORAGE = new InjectionToken<Storage>('Browser Storage', {
+  providedIn: 'root',
+  factory: () => localStorage
+});
 
 @Injectable({
   providedIn: 'root'
 })
 export class LocalStorageService {
 
+  constructor(@Inject(BROWSER_STORAGE) public storage: Storage) {}
+
   public setItem<T>(key: KeyStorage, value: T): void {
-    window.localStorage.setItem(key, JSON.stringify(value));
+    console.log("cos dziala")
+    console.log("key to: " + key);
+    console.log("wartosc key to" + JSON.stringify(value))
+    this.storage.setItem(key, JSON.stringify(value));
   }
 
   public getItem<T>(key: KeyStorage): T {
-    const retrievedObject = window.localStorage.getItem(key);
+    const retrievedObject = this.storage.getItem(key);
 
     if (retrievedObject === null) {
       return {} as T;
@@ -24,16 +34,16 @@ export class LocalStorageService {
   }
 
   public removeItem(key: KeyStorage): void {
-    window.localStorage.removeItem(key);
+    this.storage.removeItem(key);
   }
 
   public clear(): void {
     console.log("locoal storage clear")
-    window.localStorage.clear();
+    this.storage.clear();
   }
 
   public key(index: number): Nullable<string> {
-    return window.localStorage.key(index);
+    return this.storage.key(index);
   }
 
 }

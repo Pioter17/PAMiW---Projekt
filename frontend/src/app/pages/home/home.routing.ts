@@ -1,12 +1,13 @@
 import { Routes } from "@angular/router";
 import { HomeComponent } from "./home.component";
 import { PathRoutes } from "@core/constants/routes.const";
+import { AuthorizationGuardGuard } from "@core/guards/authorization-guard.guard";
 
 export default [
     {
         path: '',
         component: HomeComponent,
-        // canActivate: [],
+        canActivate: [AuthorizationGuardGuard],
     },
     {
         path: `${PathRoutes.ADD}/:id?`,

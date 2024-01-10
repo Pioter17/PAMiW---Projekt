@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
-import { LocalStorageService } from '../services/local-storage.service';
-import { KeyStorage } from '../enums/key-storage.enum';
 import { Router } from '@angular/router';
-import { HttpClient, HttpParams } from '@angular/common/http';
 import { isEmpty } from 'lodash';
+import { KeyStorage } from '../enums/key-storage.enum';
+import { LocalStorageService } from '../services/local-storage.service';
 
 @Injectable({
   providedIn: 'root'
