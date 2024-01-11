@@ -31,4 +31,12 @@ public class AuthenticationController {
     ){
         return ResponseEntity.ok(service.authenticate(request));
     }
+
+    @PostMapping("/logout")
+    public ResponseEntity<Void> logout(@RequestBody String token) {
+        // Przyjmujemy w żądaniu informacje potrzebne do wylogowania, np. username
+        // Możesz dostosować to do swoich potrzeb.
+        service.logout(token);
+        return ResponseEntity.noContent().build();
+    }
 }

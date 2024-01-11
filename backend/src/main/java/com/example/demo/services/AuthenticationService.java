@@ -51,4 +51,8 @@ public class AuthenticationService {
                 .token(jwtToken)
                 .build();
     }
+
+    public void logout(String token) {
+        jwtService.deleteToken(token);
+    }
 }

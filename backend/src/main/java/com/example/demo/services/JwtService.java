@@ -68,8 +68,22 @@ public class JwtService {
                 .getBody();
     }
 
+    public void deleteToken(String token) {
+        Claims claims = extractAllClaims(token);
+        claims.setExpiration(new Date(System.currentTimeMillis()));
+
+        Jwts
+                .builder()
+                .setClaims(claims)
+                .signWith(getSigningKey(), SignatureAlgorithm.HS256)
+                .compact();
+    }
+
+
     private Key getSigningKey() {
         byte[] keyBytes = Decoders.BASE64.decode(SECRET_KEY);
         return Keys.hmacShaKeyFor(keyBytes);
     }
+
+
 }
