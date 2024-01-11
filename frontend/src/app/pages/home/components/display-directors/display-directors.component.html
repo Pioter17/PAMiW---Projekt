@@ -1,9 +1,6 @@
 <ng-container *transloco="let t; read: 'displayDirectors'">
   <div class="container">
-    <button class="btn btn-outline-info" (click)="getDirectors()" *ngIf="!show"> {{t('show')}} </button>
-    <button class="btn btn-outline-info" (click)="hideDirectors()" *ngIf="show">{{t('hide')}}</button>
     <div
-      *ngIf="show"
       class="director__wrapper"
     >
     <div class="actions">
@@ -39,22 +36,22 @@
         </button>
       </div>
     </div>
-      @for (director of directors; track $index) 
+      @for (director of directors; track $index)
       {
         <div
           class="director"
         >
           <span class="info">
             {{t('name')}} {{ director.name }}
-          </span> 
-          <span>
-            {{t('nationality')}} {{ director.nationality }} 
           </span>
           <span>
-            {{t('age')}} {{ director.age }} 
+            {{t('nationality')}} {{ director.nationality }}
+          </span>
+          <span>
+            {{t('age')}} {{ director.age }}
           </span>
         </div>
-      } 
+      }
     </div>
   </div>
 </ng-container>

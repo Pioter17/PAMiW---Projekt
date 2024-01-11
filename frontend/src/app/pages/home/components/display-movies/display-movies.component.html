@@ -1,9 +1,6 @@
 <ng-container *transloco="let t; read: 'displayMovies'">
   <div class="container">
-    <button class="btn btn-outline-info" (click)="getMovies()" *ngIf="!show">{{t('show')}}</button>
-    <button class="btn btn-outline-info" (click)="hideMovies()" *ngIf="show">{{t('hide')}}</button>
     <div
-      *ngIf="show"
       class="movie__wrapper"
     >
     <div class="actions">
@@ -44,14 +41,14 @@
         </button>
       </div>
     </div>
-      @for (movie of movies; track $index) 
+      @for (movie of movies; track $index)
       {
         <div
           class="movie"
         >
           <span class="info">
             {{t('name')}} {{ movie.name }}
-          </span> 
+          </span>
           <span>
             {{t('director')}} {{ movie.director.name }}
           </span>
@@ -75,7 +72,42 @@
             </span>
           </button>
         </div>
-      } 
+      }
     </div>
   </div>
+
+  <!-- <div class="test">
+    @if (movies == null)
+{
+    <p><em>{{t('message')}}</em></p>
+}  @else
+{
+    @if (movies.Count == 0)
+    {
+        <p><em>"Wystąpił błąd"</em></p>
+    }
+    <div>
+        <InputText @bind-Value=searchTerm></InputText>
+        <button class="btn btn-primary" @onclick=Search>Search</button>
+        <button class="btn btn-primary" @onclick="()=> GoToCreate()">Create</button>
+    </div>
+    @for (movie of movies)
+    {
+        <div class="card mb-4">
+            <div class="card-body">
+                <h5 class="card-title">Name: @movie.name</h5>
+                <p class="card-text">Director: @movie.director.name</p>
+                <p class="card-text">Producer: @movie.producer</p>
+                <p class="card-text">Rating: @movie.rating</p>
+                <p class="card-text">Length: @movie.length</p>
+                <button class="btn btn-primary" @onclick="()=> GoToEdit(movie.name)">Edit</button>
+            </div>
+        </div>
+    }
+
+    <button class="btn btn-primary" disabled="@(currentPage==1)" @onclick="PreviousPage">Previous</button>
+    <span>@currentPage</span>;
+    <button class="btn btn-primary" disabled="@(currentPage==totalPages)" @onclick="NextPage">Next</button>
+}
+  </div> -->
 </ng-container>

@@ -23,7 +23,7 @@ import { RegisterFormCreatorService } from '@pages/auth/services/register-form-c
   styleUrl: './register.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class RegisterComponent  implements OnInit { 
+export class RegisterComponent  implements OnInit {
   form: FormGroup;
 
   formCreator = inject(RegisterFormCreatorService);
@@ -39,7 +39,8 @@ export class RegisterComponent  implements OnInit {
     let user : AuthenticationUserRegisterData = this.form.value;
     this.authService.register(user).subscribe((res : {token: any})=>{
       this.userService.setUserToken(res.token);
-      console.log(this.userService.getUserToken())
+      console.log(this.userService.getUserToken());
+      this.userService.isLogged();
       this.router.navigateByUrl('home');
     })  }
 

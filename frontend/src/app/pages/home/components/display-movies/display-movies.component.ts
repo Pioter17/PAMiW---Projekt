@@ -30,7 +30,7 @@ import { ApiMovieService } from '@pages/home/services/api-movie.service';
   styleUrl: './display-movies.component.scss',
   // changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class DisplayMoviesComponent implements OnInit{ 
+export class DisplayMoviesComponent implements OnInit{
   show = false;
   filtered = false;
   movies: Movie[] = [];
@@ -38,22 +38,12 @@ export class DisplayMoviesComponent implements OnInit{
   page: number;
   allPages: number = 4;
 
-  private dialog = inject(MatDialog);
   private api = inject(ApiMovieService);
   private router = inject(Router);
 
   ngOnInit(): void {
     this.page = 1;
     this.getMovies();
-  }
-
-  showMovies(){
-    this.show = true;
-  }
-
-  hideMovies(){
-    this.show = false;
-    this.movies = [];
   }
 
   getMovies(){
@@ -66,10 +56,9 @@ export class DisplayMoviesComponent implements OnInit{
       });
       this.allPages = res.totalPages;
     })
-    this.showMovies();
   }
 
-  getFilteredMovies(){    
+  getFilteredMovies(){
     this.movies = [];
     this.filtered = true;
     this.page = 1;

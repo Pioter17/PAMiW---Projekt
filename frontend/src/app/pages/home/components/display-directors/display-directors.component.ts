@@ -27,7 +27,7 @@ import { ApiDirectorService } from '@pages/home/services/api-director.service';
   styleUrl: './display-directors.component.scss',
   // changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class DisplayDirectorsComponent implements OnInit{ 
+export class DisplayDirectorsComponent implements OnInit{
   show = false;
   filtered = false;
   directors: Director[] = [];
@@ -35,20 +35,11 @@ export class DisplayDirectorsComponent implements OnInit{
   page: number;
   allPages: number = 4;
 
-  private dialog = inject(MatDialog);
   api = inject(ApiDirectorService);
 
   ngOnInit(): void {
     this.page = 1;
     this.getDirectors();
-  }
-
-  showDirectors(){
-    this.show = true;
-  }
-
-  hideDirectors(){
-    this.show = false;
   }
 
   getDirectors() {
@@ -61,7 +52,6 @@ export class DisplayDirectorsComponent implements OnInit{
       });
       this.allPages = res.totalPages;
     });
-    this.showDirectors();
   }
 
   getPreviousDirectors() {
@@ -83,6 +73,6 @@ export class DisplayDirectorsComponent implements OnInit{
         this.directors.push(elem);
       });
       this.allPages = res.totalPages;
-    });    
+    });
   }
 }

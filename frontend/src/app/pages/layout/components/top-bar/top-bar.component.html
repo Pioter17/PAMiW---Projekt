@@ -1,14 +1,24 @@
 <ng-container *transloco="let t">
+  <div class="left">
+    @if (isUserLogged | async) {
+      <h2>
+        {{ t('logged') }} {{ name }}
+      </h2>
+    } @else {
+      <h2> {{ t('notLogged') }} </h2>
+    }
+  </div>
+  <div class="buttons">
     <button (click)="changeLanguage()">
-        {{ t('language') }}
+      {{ t('language') }}
     </button>
     <button (click)="changeTheme()">
-        {{ t('theme') }}
+      {{ t('theme') }}
     </button>
-    <h2>
-        {{ t('logged') }} {{ name }}
-    </h2>
-    <button (click)="logout()">
+    @if (isUserLogged | async) {
+      <button (click)="logout()">
         {{ t('logout') }}
-    </button> 
+      </button>
+    }
+  </div>
 </ng-container>

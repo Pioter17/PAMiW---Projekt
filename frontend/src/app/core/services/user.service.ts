@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { isEmpty } from 'lodash';
 import { KeyStorage } from '../enums/key-storage.enum';
 import { LocalStorageService } from '../services/local-storage.service';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -10,6 +11,7 @@ import { LocalStorageService } from '../services/local-storage.service';
 export class UserService {
 
   private userToken: string;
+  private status = new BehaviorSubject<boolean>(false);
 
   constructor(
     private localStorageService: LocalStorageService,
@@ -18,6 +20,7 @@ export class UserService {
 
   setUserToken(token: string): void {
     this.localStorageService.setItem(KeyStorage.USER_AUTHENTICATION_TOKEN, token);
+    this.status.next(true);
   }
 
   getUserToken(): string {
@@ -28,7 +31,12 @@ export class UserService {
     return !isEmpty(this.getUserToken());
   }
 
+  isLogged(){
+    return this.status.asObservable();
+  }
+
   logout(): void {
+    this.status.next(false);
     this.clearAll();
   }
 
@@ -43,9 +51,7 @@ export class UserService {
   // }
 
   private clearAll(): void {
-    console.log("przed");
     this.localStorageService.clear();
-    console.log("pomiędzy");
     void this.router.navigateByUrl('auth/login');
   }
 }

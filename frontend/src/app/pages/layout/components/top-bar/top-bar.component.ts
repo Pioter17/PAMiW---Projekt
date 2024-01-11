@@ -1,9 +1,10 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnChanges, OnInit, SimpleChanges, inject } from '@angular/core';
 import { AuthService } from '@core/services/auth.service';
 import { ThemeChangerService } from '@core/services/theme-changer.service';
 import { UserService } from '@core/services/user.service';
 import { TranslocoModule, TranslocoService } from '@ngneat/transloco';
+import { Observable } from 'rxjs';
 import { isNumberObject } from 'util/types';
 
 @Component({
@@ -11,7 +12,7 @@ import { isNumberObject } from 'util/types';
   standalone: true,
   imports: [
     CommonModule,
-    TranslocoModule
+    TranslocoModule,
   ],
   providers: [
     AuthService
@@ -20,14 +21,20 @@ import { isNumberObject } from 'util/types';
   styleUrl: './top-bar.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class TopBarComponent { 
+export class TopBarComponent implements OnInit {
   name = "Piotrek";
   lightMode = true;
+  isUserLogged: Observable<boolean>;
+
 
   translocoService = inject(TranslocoService);
   themeChangerService = inject(ThemeChangerService);
   authService = inject(AuthService);
   userService = inject(UserService);
+
+  ngOnInit(): void {
+    this.isUserLogged = this.userService.isLogged();
+  }
 
   changeLanguage() {
     this.translocoService.setActiveLang(this.translocoService.getActiveLang() == "pl" ? "en" : "pl");

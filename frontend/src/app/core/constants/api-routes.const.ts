@@ -5,4 +5,5 @@ export const ApiRoutes = {
   SEARCH_DIRECTORS_ENDPOINT: '/directors/search?',
   DIRECTORS_ENDPOINT: '/directors',
   ALL_DIRECTORS_ENDPOINT: '/directors/all',
+  AUTH: '/auth/'
 }

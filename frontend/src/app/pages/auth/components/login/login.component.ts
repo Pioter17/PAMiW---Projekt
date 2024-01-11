@@ -23,14 +23,14 @@ import { LoginFormCreatorService } from '@pages/auth/services/login-form-creator
   styleUrl: './login.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class LoginComponent implements OnInit { 
+export class LoginComponent implements OnInit {
   form: FormGroup;
 
   formCreator = inject(LoginFormCreatorService);
   authService = inject(AuthService);
   userService = inject(UserService);
   router = inject(Router);
-  
+
 
   ngOnInit(): void {
     this.form = this.formCreator.getLoginForm();
@@ -38,9 +38,10 @@ export class LoginComponent implements OnInit {
 
   login(){
     let user : AuthenticationUserLoginData = this.form.value;
-    this.authService.register(user).subscribe((res : {token: any})=>{
+    this.authService.login(user).subscribe((res : {token: any})=>{
       this.userService.setUserToken(res.token);
-      console.log(this.userService.getUserToken())
+      console.log(this.userService.getUserToken());
+      this.userService.isLogged();
       this.router.navigateByUrl('home');
     })
   }

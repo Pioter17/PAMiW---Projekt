@@ -2,6 +2,7 @@
     "language": "Zmień język",
     "theme": "Zmień kolor",
     "logged": "Zalogowany jako",
+    "notLogged": "Jesteś niezalogowany",
     "logout": "Wyloguj",
     "displayMovies": {
         "showAll": "Wyświetl wszystkie",
@@ -12,6 +13,7 @@
         "producer": "Producent: ",
         "length": "Długość: ",
         "rating": "Ocena: ",
+        "message": "Ładowanie: ",
         "addEdit": {
             "add": "Dodaj",
             "edit": "Edytuj",

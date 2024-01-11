@@ -4,4 +4,6 @@ export const PathRoutes = {
     AUTH: 'auth',
     LOGIN: 'login',
     REGISTER: 'register',
+    MOVIES: 'movies',
+    DIRECTORS: 'directors',
 }
