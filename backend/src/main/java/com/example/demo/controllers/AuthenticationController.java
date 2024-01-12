@@ -33,9 +33,8 @@ public class AuthenticationController {
     }
 
     @PostMapping("/logout")
+    @CrossOrigin(origins = "http://localhost:4200")
     public ResponseEntity<Void> logout(@RequestBody String token) {
-        // Przyjmujemy w żądaniu informacje potrzebne do wylogowania, np. username
-        // Możesz dostosować to do swoich potrzeb.
         service.logout(token);
         return ResponseEntity.noContent().build();
     }
