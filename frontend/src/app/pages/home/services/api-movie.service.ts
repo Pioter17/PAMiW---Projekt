@@ -4,19 +4,21 @@ import { ApiRoutes } from '@core/constants/api-routes.const';
 import { Movie, MovieDTO, MoviePaginationResponse, MovieResponse } from '@core/interfaces/movie';
 import { Observable } from 'rxjs';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class ApiMovieService {
   private http = inject(HttpClient);
 
   getFilteredMovies(name: string, page: number = 0, size: number = 10): Observable<MoviePaginationResponse> {
     const params = { name, page, size };
-  
+
     return this.http.get<MoviePaginationResponse>(`${ApiRoutes.API_BASE_PATH}${ApiRoutes.SEARCH_MOVIES_ENDPOINT}`, { params });
   }
-  
+
   getMovies(page: number = 0, size: number = 10): Observable<MoviePaginationResponse> {
     const params = { page, size };
-  
+
     return this.http.get<MoviePaginationResponse>(`${ApiRoutes.API_BASE_PATH}${ApiRoutes.MOVIES_ENDPOINT}`, { params });
   }
 

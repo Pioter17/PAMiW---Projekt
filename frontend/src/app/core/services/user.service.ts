@@ -32,6 +32,7 @@ export class UserService {
   }
 
   isLogged(){
+    this.status.next(this.isAuthenticated() ? true : false);
     return this.status.asObservable();
   }
 

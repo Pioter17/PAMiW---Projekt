@@ -31,25 +31,25 @@
         </button>
       </div>
       <div *ngIf="filtered" class="show__all">
-        <button class="btn btn-outline-info" (click)="getDirectors()">
+        <button class="btn btn-primary" (click)="getDirectors()">
           {{t('showAll')}}
         </button>
       </div>
     </div>
       @for (director of directors; track $index)
       {
-        <div
-          class="director"
-        >
-          <span class="info">
-            {{t('name')}} {{ director.name }}
-          </span>
-          <span>
-            {{t('nationality')}} {{ director.nationality }}
-          </span>
-          <span>
-            {{t('age')}} {{ director.age }}
-          </span>
+        <div class="card mb-4">
+          <div class="card-body">
+            <h5 class="card-title">
+              {{t('name')}} {{ director.name }}
+            </h5>
+            <p class="card-text">
+              {{t('nationality')}} {{ director.nationality }}
+            </p>
+            <p class="card-text">
+              {{t('age')}} {{ director.age }}
+            </p>
+          </div>
         </div>
       }
     </div>

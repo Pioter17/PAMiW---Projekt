@@ -1,5 +1,11 @@
 :host {
   display: flex;
   justify-content: space-between;
-  background-color: #FAEED1;;
+  background-color: #EEF5FF;
+  padding: 10px;
+}
+
+.buttons {
+  display: flex;
+  gap: 20px;
 }

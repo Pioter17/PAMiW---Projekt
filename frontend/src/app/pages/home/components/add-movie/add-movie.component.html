@@ -1,5 +1,4 @@
 <ng-container *transloco="let t; read 'displayMovies'">
-  <app-layout>
     <div class="wrapper">
       <h2 class="title">
         {{isEdit? t('addEdit.edit') : t('addEdit.add')}} {{ t('addEdit.movie') }}
@@ -7,7 +6,7 @@
       <form
         [formGroup]="form"
         class="add__movie__form"
-      >  
+      >
         <mat-form-field appearance="fill">
           <mat-label>{{t('name')}}</mat-label>
           <input
@@ -20,7 +19,7 @@
             {{t('addEdit.required')}}
           </mat-error>
         </mat-form-field>
-        
+
         <mat-form-field appearance="fill">
           <mat-label>{{t('director')}}</mat-label>
           <mat-select
@@ -30,10 +29,10 @@
               *ngFor="let director of directors"
               [value]="director.id"
             >
-              {{ director.name }} 
+              {{ director.name }}
             </mat-option>
           </mat-select>
-        </mat-form-field>  
+        </mat-form-field>
 
         <mat-form-field appearance="fill">
           <mat-label>{{t('producer')}}</mat-label>
@@ -96,5 +95,4 @@
         </mat-dialog-actions>
       </form>
     </div>
-  </app-layout>
 </ng-container>

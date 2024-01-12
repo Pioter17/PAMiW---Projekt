@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { ActiveLinkDirective } from './shared/link.directive';
 
 @Component({
   selector: 'app-nav-list',
@@ -8,6 +9,7 @@ import { RouterModule } from '@angular/router';
   imports: [
     CommonModule,
     RouterModule,
+    ActiveLinkDirective
   ],
   templateUrl: './nav-list.component.html',
   styleUrl: './nav-list.component.scss',

@@ -36,78 +36,43 @@
         </button>
       </div>
       <div *ngIf="filtered" class="show__all">
-        <button class="btn btn-outline-info" (click)="getMovies()">
+        <button class="btn btn-primary" (click)="getMovies()">
           {{t('showAll')}}
         </button>
       </div>
     </div>
       @for (movie of movies; track $index)
       {
-        <div
-          class="movie"
-        >
-          <span class="info">
-            {{t('name')}} {{ movie.name }}
-          </span>
-          <span>
-            {{t('director')}} {{ movie.director.name }}
-          </span>
-          <span>
-            {{t('producer')}} {{ movie.producer }}
-          </span>
-          <span>
-            {{t('length')}} {{ movie.length }}
-          </span>
-          <span>
-            {{t('rating')}} {{ movie.rating }}
-          </span>
-          <button (click)="deleteMovie(movie.id, $index)" class="oncard btn btn-outline-secondary">
-            <span class="material-symbols-outlined">
-              delete
-            </span>
-          </button>
-          <button (click)="updateMovie(movie.id)" class="oncard btn btn-outline-secondary">
-            <span class="material-symbols-outlined">
-              edit
-            </span>
-          </button>
+        <div class="card mb-4">
+          <div class="card-body">
+            <h5 class="card-title">
+              {{t('name')}} {{ movie.name }}
+            </h5>
+            <p class="card-text">
+              {{t('director')}} {{ movie.director.name }}
+            </p>
+            <p class="card-text">
+              {{t('producer')}} {{ movie.producer }}
+            </p>
+            <p class="card-text">
+              {{t('length')}} {{ movie.length }}
+            </p>
+            <p class="card-text">
+              {{t('rating')}} {{ movie.rating }}
+            </p>
+            <button (click)="deleteMovie(movie.id, $index)" class="oncard btn btn-outline-secondary">
+              <span class="material-symbols-outlined">
+                delete
+              </span>
+            </button>
+            <button (click)="updateMovie(movie.id)" class="oncard btn btn-primary">
+              <span class="material-symbols-outlined">
+                edit
+              </span>
+            </button>
+          </div>
         </div>
       }
     </div>
   </div>
-
-  <!-- <div class="test">
-    @if (movies == null)
-{
-    <p><em>{{t('message')}}</em></p>
-}  @else
-{
-    @if (movies.Count == 0)
-    {
-        <p><em>"Wystąpił błąd"</em></p>
-    }
-    <div>
-        <InputText @bind-Value=searchTerm></InputText>
-        <button class="btn btn-primary" @onclick=Search>Search</button>
-        <button class="btn btn-primary" @onclick="()=> GoToCreate()">Create</button>
-    </div>
-    @for (movie of movies)
-    {
-        <div class="card mb-4">
-            <div class="card-body">
-                <h5 class="card-title">Name: @movie.name</h5>
-                <p class="card-text">Director: @movie.director.name</p>
-                <p class="card-text">Producer: @movie.producer</p>
-                <p class="card-text">Rating: @movie.rating</p>
-                <p class="card-text">Length: @movie.length</p>
-                <button class="btn btn-primary" @onclick="()=> GoToEdit(movie.name)">Edit</button>
-            </div>
-        </div>
-    }
-
-    <button class="btn btn-primary" disabled="@(currentPage==1)" @onclick="PreviousPage">Previous</button>
-    <span>@currentPage</span>;
-    <button class="btn btn-primary" disabled="@(currentPage==totalPages)" @onclick="NextPage">Next</button>
-}
-  </div> -->
 </ng-container>

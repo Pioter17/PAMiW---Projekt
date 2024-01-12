@@ -21,11 +21,11 @@ export default [
       {
         path: PathRoutes.DIRECTORS,
         loadComponent: ()=> import('@pages/home/components/display-directors/display-directors.component').then(mod => mod.DisplayDirectorsComponent)
-      }
+      },
+      {
+          path: `${PathRoutes.ADD}/:id?`,
+          loadComponent: ()=> import('@pages/home/components/add-movie/add-movie.component').then(mod => mod.AddMovieComponent)
+      },
     ]
-  },
-  {
-      path: `${PathRoutes.ADD}/:id?`,
-      loadComponent: ()=> import('@pages/home/components/add-movie/add-movie.component').then(mod => mod.AddMovieComponent)
-  },
+  }
 ] as Routes

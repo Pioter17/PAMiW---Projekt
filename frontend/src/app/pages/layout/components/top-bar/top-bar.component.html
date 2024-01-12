@@ -9,14 +9,14 @@
     }
   </div>
   <div class="buttons">
-    <button (click)="changeLanguage()">
+    <button class="btn btn-outline-secondary" (click)="changeLanguage()">
       {{ t('language') }}
     </button>
-    <button (click)="changeTheme()">
+    <button class="btn btn-outline-secondary" (click)="changeTheme()">
       {{ t('theme') }}
     </button>
     @if (isUserLogged | async) {
-      <button (click)="logout()">
+      <button class="btn btn-danger" (click)="logout()">
         {{ t('logout') }}
       </button>
     }
