@@ -5,10 +5,10 @@ export interface AuthenticationUserRegisterData {
       // password_confirmation: string,
     }
   }
-  
-  export interface AuthenticationUserLoginData {
-    user: {
-      username: string,
-      password: string,
-    }
+
+export interface AuthenticationUserLoginData {
+  user: {
+    username: string,
+    password: string,
   }
+}

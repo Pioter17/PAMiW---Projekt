@@ -60,16 +60,18 @@
             <p class="card-text">
               {{t('rating')}} {{ movie.rating }}
             </p>
-            <button (click)="deleteMovie(movie.id, $index)" class="oncard btn btn-outline-secondary">
-              <span class="material-symbols-outlined">
-                delete
-              </span>
-            </button>
-            <button (click)="updateMovie(movie.id)" class="oncard btn btn-primary">
-              <span class="material-symbols-outlined">
-                edit
-              </span>
-            </button>
+            @if ((role | async) == "ADMIN") {
+              <button (click)="deleteMovie(movie.id, $index)" class="oncard btn btn-outline-secondary">
+                <span class="material-symbols-outlined">
+                  delete
+                </span>
+              </button>
+              <button (click)="updateMovie(movie.id)" class="oncard btn btn-primary">
+                <span class="material-symbols-outlined">
+                  edit
+                </span>
+              </button>
+            }
           </div>
         </div>
       }

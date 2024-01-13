@@ -8,8 +8,10 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { Router } from '@angular/router';
 import { PathRoutes } from '@core/constants/routes.const';
 import { Movie } from '@core/interfaces/movie';
+import { UserService } from '@core/services/user.service';
 import { TranslocoModule } from '@ngneat/transloco';
 import { ApiMovieService } from '@pages/home/services/api-movie.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-display-movies',
@@ -37,13 +39,16 @@ export class DisplayMoviesComponent implements OnInit{
   search: string;
   page: number;
   allPages: number = 4;
+  role: Observable<string>;
 
   private api = inject(ApiMovieService);
   private router = inject(Router);
+  private userService = inject(UserService);
 
   ngOnInit(): void {
     this.page = 1;
     this.getMovies();
+    this.role = this.userService.getRole();
   }
 
   getMovies(){

@@ -4,6 +4,8 @@ import { isEmpty } from 'lodash';
 import { KeyStorage } from '../enums/key-storage.enum';
 import { LocalStorageService } from '../services/local-storage.service';
 import { BehaviorSubject } from 'rxjs';
+import { jwtDecode } from 'jwt-decode';
+import { User } from '@core/interfaces/user';
 
 @Injectable({
   providedIn: 'root'
@@ -12,6 +14,7 @@ export class UserService {
 
   private userToken: string;
   private status = new BehaviorSubject<boolean>(false);
+  private role = new BehaviorSubject<string>("");
 
   constructor(
     private localStorageService: LocalStorageService,
@@ -21,6 +24,7 @@ export class UserService {
   setUserToken(token: string): void {
     this.localStorageService.setItem(KeyStorage.USER_AUTHENTICATION_TOKEN, token);
     this.status.next(true);
+    this.role.next(this.getUserData().roles[0].authority);
   }
 
   getUserToken(): string {
@@ -41,15 +45,22 @@ export class UserService {
     this.clearAll();
   }
 
-  // isTokenExpired(): boolean {
-  //   const { expires_at } = this.user();
+  getUserData(): User | null{
+      let tokenDecrypted = this.getDecodedAccessToken(this.getUserToken());
+      return tokenDecrypted;
+  }
 
-  //   return isAfter(new Date(), new Date(expires_at));
-  // }
+  getRole(){
+    return this.role.asObservable();
+  }
 
-  // private user(): string {
-  //   return this.localStorageService.getItem<string>(KeyStorage.USER_AUTHENTICATION_TOKEN);
-  // }
+  private getDecodedAccessToken(token: string): any {
+    try {
+      return jwtDecode(token);
+    } catch(Error) {
+      return null;
+    }
+  }
 
   private clearAll(): void {
     this.localStorageService.clear();

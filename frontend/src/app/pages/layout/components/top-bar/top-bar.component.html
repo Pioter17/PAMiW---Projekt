@@ -2,7 +2,7 @@
   <div class="left">
     @if (isUserLogged | async) {
       <h2>
-        {{ t('logged') }} {{ name }}
+        {{ t('logged') }} {{ role | async }}
       </h2>
     } @else {
       <h2> {{ t('notLogged') }} </h2>

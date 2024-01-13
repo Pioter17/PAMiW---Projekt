@@ -22,7 +22,7 @@ import { isNumberObject } from 'util/types';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TopBarComponent implements OnInit {
-  name = "Piotrek";
+  role: Observable<string>;
   lightMode = true;
   isUserLogged: Observable<boolean>;
 
@@ -34,6 +34,7 @@ export class TopBarComponent implements OnInit {
 
   ngOnInit(): void {
     this.isUserLogged = this.userService.isLogged();
+    this.role = this.userService.getRole();
   }
 
   changeLanguage() {

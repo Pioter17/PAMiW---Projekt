@@ -23,8 +23,6 @@ public class User implements UserDetails {
     @GeneratedValue
     private Integer id;
     @Getter
-    private String nickname;
-    @Getter
     private String name;
     private String password;
 
@@ -34,10 +32,6 @@ public class User implements UserDetails {
     public User(String name, String passwd) {
         this.name = name;
         this.password = password;
-    }
-
-    public void setNickname(String nickname) {
-        this.nickname = nickname;
     }
     public void setName(String name) {
         this.name = name;

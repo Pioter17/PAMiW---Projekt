@@ -2,9 +2,11 @@ package com.example.demo.config;
 
 import com.example.demo.models.Director;
 import com.example.demo.models.Movie;
+import com.example.demo.other.RegisterRequest;
 import com.example.demo.repositories.DirectorRepository;
 import com.example.demo.repositories.MovieRepository;
 import com.example.demo.repositories.UserRepository;
+import com.example.demo.services.AuthenticationService;
 import com.github.javafaker.Faker;
 import jakarta.persistence.Enumerated;
 import lombok.RequiredArgsConstructor;
@@ -23,6 +25,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.Locale;
 import java.util.Random;
+
+import static com.example.demo.other.Role.ADMIN;
 
 @Configuration
 @RequiredArgsConstructor
@@ -55,8 +59,19 @@ public class AppConfig {
     }
 
     @Bean
-    CommandLineRunner commandLineRunner(MovieRepository movieRepository, DirectorRepository directorRepository) {
+    CommandLineRunner commandLineRunner(
+            MovieRepository movieRepository,
+            DirectorRepository directorRepository,
+            AuthenticationService service
+        ) {
         return args -> {
+            var admin = RegisterRequest.builder()
+                    .name("admin")
+                    .password("admin")
+                    .role(ADMIN)
+                    .build();
+            service.register(admin);
+
             Random random = new Random(98765);
             Faker faker = new Faker(Locale.ENGLISH, random);
             for (int i = 0; i < 40; i++) {
