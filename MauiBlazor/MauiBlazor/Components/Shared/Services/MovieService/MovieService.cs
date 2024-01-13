@@ -1,11 +1,14 @@
-﻿using MauiBlazor.Components.Shared.Configuration;
+﻿using MauiBlazor.Components.Authentication;
+using MauiBlazor.Components.Shared.Configuration;
 using MauiBlazor.Components.Shared.Models;
 using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http.Headers;
 using System.Net.Http.Json;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace MauiBlazor.Components.Shared.Services.MovieService
@@ -50,6 +53,9 @@ namespace MauiBlazor.Components.Shared.Services.MovieService
         {
             try
             {
+                string getUserSessionFromStorage = await SecureStorage.Default.GetAsync("UserSession");
+                var userSession = JsonSerializer.Deserialize<UserSession>(getUserSessionFromStorage);
+                _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", userSession.Token.Replace("\\", ""));
 
                 var uri = new Uri($"http://localhost:8080/movies?page={page - 1}", UriKind.Absolute);
 

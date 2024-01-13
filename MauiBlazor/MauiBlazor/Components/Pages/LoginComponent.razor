@@ -1,0 +1,79 @@
+﻿@page "/login"
+@using MauiBlazor.Components.Authentication
+@using Microsoft.AspNetCore.Components.Authorization
+@using System.IdentityModel.Tokens.Jwt
+@using Shared.Models
+@using System.Net.Http.Json
+@inject HttpClient httpClient
+@using System.Security.Claims
+@using System.Diagnostics
+@inject NavigationManager navigateMgr
+@inject AuthenticationStateProvider authStateProvider
+
+<EditForm Model="LoginModel" OnValidSubmit="HandleLogin">
+    <DataAnnotationsValidator></DataAnnotationsValidator>
+    <ValidationSummary></ValidationSummary>
+
+    <div class="card">
+        <div class="card-header">Login Account</div>
+        <div class="card-body">
+            <div class="form-group mt-2">
+                <label>Name</label>
+                <InputText class="form-control" @bind-Value="LoginModel.name"></InputText>
+            </div>
+            <div class="form-group mt-2">
+                <label>Password</label>
+                <InputText class="form-control" @bind-Value="LoginModel.password"></InputText>
+            </div>
+        </div>
+        <div class="card-footer">
+            <button type="submit" class="btn btn-primary">Login</button>
+        </div>
+    </div>
+</EditForm>
+@code {
+    private Login LoginModel { get; set; } = new();
+    private static readonly HttpClient _httpClient;
+
+    private async Task HandleLogin()
+    {
+        var user = new Login();
+        user.name = LoginModel.name;
+        user.password = LoginModel.password;
+        var result = await httpClient.PostAsJsonAsync("http://localhost:8080/api/v1/auth/login", user);
+        if (!result.IsSuccessStatusCode)
+        {
+            return;
+        }
+        var response = await result.Content.ReadFromJsonAsync<JwtServiceResponse>();
+        if (response.token != "")
+        {
+            var getUserSession = GetUserClaims(response.token);
+            if (getUserSession == null) return;
+
+            var customAuthStateProvider = (CustomAuthenticationStateProvider)authStateProvider;
+            await customAuthStateProvider.UpdateAuthenticationState(getUserSession);
+            navigateMgr.NavigateTo("/movies", forceLoad: true, replace: true);
+            LoginModel = new Login();
+        }
+        else
+        {
+            return;
+        }
+    }
+
+    private UserSession GetUserClaims(string token)
+    {
+        var handler = new JwtSecurityTokenHandler();
+        var readToken = handler.ReadJwtToken(token);
+        var claims = readToken.Claims;
+
+        return new UserSession()
+            {
+                // UserName = claims.First(_ => _.Type == ClaimTypes.Name).Value,
+                // UserRole = claims.First(_ => _.Type == ClaimTypes.Role).Value,
+                // Email = claims.First(_ => _.Type == ClaimTypes.Email).Value,
+                Token = token
+            };
+    }
+}
