@@ -4,9 +4,11 @@ import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthenticationUserLoginData } from '@core/interfaces/authentication-user-data';
 import { AuthService } from '@core/services/auth.service';
+import { GoogleApiService } from '@core/services/google-api.service';
 import { UserService } from '@core/services/user.service';
 import { TranslocoModule } from '@ngneat/transloco';
 import { LoginFormCreatorService } from '@pages/auth/services/login-form-creator.service';
+import { OAuthModule, OAuthService } from 'angular-oauth2-oidc';
 
 @Component({
   selector: 'app-login',
@@ -14,10 +16,11 @@ import { LoginFormCreatorService } from '@pages/auth/services/login-form-creator
   imports: [
     CommonModule,
     ReactiveFormsModule,
-    TranslocoModule
+    TranslocoModule,
   ],
   providers: [
-    AuthService
+    AuthService,
+    OAuthService
   ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',
@@ -30,6 +33,8 @@ export class LoginComponent implements OnInit {
   authService = inject(AuthService);
   userService = inject(UserService);
   router = inject(Router);
+  googleService = inject(GoogleApiService);
+  oservce = inject(OAuthService);
 
 
   ngOnInit(): void {
@@ -44,6 +49,10 @@ export class LoginComponent implements OnInit {
       this.userService.isLogged();
       this.router.navigateByUrl('home');
     })
+  }
+
+  redirectToOAuthProvider() {
+    this.googleService.login();
   }
 
 }

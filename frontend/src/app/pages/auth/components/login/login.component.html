@@ -15,9 +15,9 @@
       <button class="btn btn-primary" (click)="login()">
           {{ t('login') }}
       </button>
-      <a href="">
+      <button (click)="redirectToOAuthProvider()">
           {{ t('google') }}
-      </a>
+      </button>
       <a href="auth/register">
         {{ t('registerLink') }}
       </a>

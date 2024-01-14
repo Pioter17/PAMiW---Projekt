@@ -8,10 +8,11 @@ import { HTTP_INTERCEPTORS, HttpClientModule, provideHttpClient } from '@angular
 import { TranslocoHttpLoader } from './transloco-loader';
 import { provideTransloco } from '@ngneat/transloco';
 import { AuthInterceptor } from '@core/interceptors/auth.interceptor';
+import { OAuthModule } from 'angular-oauth2-oidc';
 
 export const appConfig: ApplicationConfig = {
-  providers: [provideRouter(routes), provideClientHydration(), provideAnimations(), importProvidersFrom(HttpClientModule), provideHttpClient(), provideTransloco({
-        config: { 
+  providers: [provideRouter(routes), provideClientHydration(), provideAnimations(), importProvidersFrom(OAuthModule),importProvidersFrom(HttpClientModule), provideHttpClient(), provideTransloco({
+        config: {
           availableLangs: ['pl','en'],
           defaultLang: 'pl',
           // Remove this option if your application doesn't support changing language in runtime.
@@ -19,7 +20,7 @@ export const appConfig: ApplicationConfig = {
           prodMode: !isDevMode(),
         },
         loader: TranslocoHttpLoader
-      }), 
+      }),
       {
         provide: HTTP_INTERCEPTORS,
         useClass: AuthInterceptor,

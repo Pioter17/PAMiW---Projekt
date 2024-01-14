@@ -52,14 +52,14 @@ namespace MauiBlazor.Components.Authentication
                 string serializeUserSession = JsonSerializer.Serialize(userSession);
                 await SecureStorage.Default.SetAsync("UserSession", serializeUserSession);
 
+                //var Role = userSession.Token.Decode
+
                 claimsPrincipal = new ClaimsPrincipal(new ClaimsIdentity(new List<Claim>
                 {
                     new Claim(ClaimTypes.Name, userSession.Token!),
                     //new Claim(ClaimTypes.Email, userSession.Email!),
                     //new Claim(ClaimTypes.Role, userSession.UserRole!)
                 }));
-
-
             }
             else
             {

@@ -13,10 +13,10 @@
     <main>
         <div class="top-row px-4">
             <div style="display: flex; gap: 20px;">
-                <button class="btn btn-outline-secondary">
+                <button class="btn btn-outline-secondary" @onclick="ChangeLang">
                     Zmień język
                 </button>
-                <button class="btn btn-outline-secondary">
+                <button class="btn btn-outline-secondary" @onclick="ChangeTheme">
                     Zmień motyw
                 </button>
             </div>
@@ -38,7 +38,15 @@
 </div>
 
 @code {
+    public Task ChangeTheme()
+    {
 
+    }
+
+    public Task ChangeLang()
+    {
+        
+    }
 
     public async Task LogoutAsync()
     {

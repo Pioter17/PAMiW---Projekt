@@ -62,12 +62,4 @@
     {
         collapseNavMenu = !collapseNavMenu;
     }
-
-    public async Task LogoutAsync()
-    {
-        var customAuthStateProvider = (CustomAuthenticationStateProvider)authStateProvider;
-        var user = customAuthStateProvider.GetAuthenticationStateAsync();
-        await customAuthStateProvider.UpdateAuthenticationState(new UserSession());
-        navigateMgr.NavigateTo("/login", forceLoad: true, replace: true);
-    }
 }
