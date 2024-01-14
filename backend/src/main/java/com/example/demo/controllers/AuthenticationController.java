@@ -6,7 +6,6 @@ import com.example.demo.other.RegisterRequest;
 import com.example.demo.services.AuthenticationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.oauth2.core.endpoint.OAuth2AuthorizationRequest;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,7 +20,7 @@ public class AuthenticationController {
     private final AuthenticationService service;
 
     @PostMapping("/register")
-    @CrossOrigin(origins = "http://localhost:4200")
+//    @CrossOrigin(origins = "http://localhost:4200")
     public ResponseEntity<AuthenticationResponse> register(
             @RequestBody RegisterRequest request
     ){
@@ -29,7 +28,7 @@ public class AuthenticationController {
     }
 
     @PostMapping("/login")
-    @CrossOrigin(origins = "http://localhost:4200")
+//    @CrossOrigin(origins = "http://localhost:4200")
     public ResponseEntity<AuthenticationResponse> authenticate(
             @RequestBody AuthenticationRequest request
     ){
@@ -37,7 +36,7 @@ public class AuthenticationController {
     }
 
     @PostMapping("/google")
-    @CrossOrigin(origins = "http://localhost:4200")
+//    @CrossOrigin(origins = "http://localhost:4200")
     public ResponseEntity<AuthenticationResponse> google(
             @RequestBody String credential
     ){
@@ -45,7 +44,7 @@ public class AuthenticationController {
     }
 
     @PostMapping("/logout")
-    @CrossOrigin(origins = "http://localhost:4200")
+//    @CrossOrigin(origins = "http://localhost:4200")
     public ResponseEntity<Void> logout(@RequestBody String token) {
         service.logout(token);
         return ResponseEntity.noContent().build();

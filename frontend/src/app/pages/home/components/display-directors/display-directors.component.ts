@@ -39,7 +39,7 @@ export class DisplayDirectorsComponent implements OnInit{
 
   ngOnInit(): void {
     this.page = 1;
-    this.getDirectors();
+    // this.getDirectors();
   }
 
   getDirectors() {

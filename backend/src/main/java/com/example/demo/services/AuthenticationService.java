@@ -10,6 +10,8 @@ import com.example.demo.repositories.UserRepository;
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdTokenVerifier;
 import com.google.api.client.http.javanet.NetHttpTransport;
+import com.google.api.client.json.JsonFactory;
+import com.google.api.client.json.gson.GsonFactory;
 import com.google.api.client.json.jackson2.JacksonFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
@@ -21,6 +23,9 @@ import org.springframework.stereotype.Service;
 import java.io.IOException;
 import java.security.GeneralSecurityException;
 import java.util.Collections;
+import java.util.Optional;
+
+import static com.example.demo.other.Role.ADMIN;
 
 @Service
 @RequiredArgsConstructor
@@ -61,12 +66,14 @@ public class AuthenticationService {
                 .token(jwtToken)
                 .build();
     }
-
+    private JsonFactory jsonFactory = GsonFactory.getDefaultInstance();
     public AuthenticationResponse oauth(String credential) {
+        credential = credential.replace("\"", "");
+        GoogleIdTokenVerifier verifier = new GoogleIdTokenVerifier.Builder(new NetHttpTransport(), jsonFactory)
+                .setAudience(Collections.singletonList(googleClientId))
+                .build();
         try {
-            GoogleIdTokenVerifier verifier = new GoogleIdTokenVerifier.Builder(new NetHttpTransport(), new JacksonFactory())
-                    .setAudience(Collections.singletonList(googleClientId))
-                    .build();
+
 
             GoogleIdToken idToken = verifier.verify(credential);
 
@@ -74,6 +81,7 @@ public class AuthenticationService {
                 GoogleIdToken.Payload payload = idToken.getPayload();
 
                 // Teraz możesz wygenerować swój JWT token i zwrócić go w odpowiedzi
+
                 var user = repository.findByName("piotrek")
                         .orElseThrow();
                 var jwtToken = jwtService.generateToken(user);

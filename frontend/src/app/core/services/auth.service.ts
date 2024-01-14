@@ -26,7 +26,6 @@ export class AuthService {
   }
 
   loginWithGoogle(credential: string) : Observable<AuthenticationResponse>{
-
     const header = new HttpHeaders().set('Content-type', 'application/json');
     return this.http.post<AuthenticationResponse>(`${ApiRoutes.API_BASE_PATH}${Api.GOOGLE}`, JSON.stringify(credential), {headers: header}).pipe(
       catchError(() => of({ token: "" })),

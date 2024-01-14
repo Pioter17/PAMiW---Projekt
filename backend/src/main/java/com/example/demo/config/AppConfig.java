@@ -2,6 +2,7 @@ package com.example.demo.config;
 
 import com.example.demo.models.Director;
 import com.example.demo.models.Movie;
+import com.example.demo.models.User;
 import com.example.demo.other.RegisterRequest;
 import com.example.demo.repositories.DirectorRepository;
 import com.example.demo.repositories.MovieRepository;

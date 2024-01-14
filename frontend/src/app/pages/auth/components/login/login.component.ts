@@ -56,16 +56,19 @@ export class LoginComponent implements OnInit {
       //@ts-ignore
       google.accounts.id.prompt((notification: PromptMomentNotification) => {})
     }
-    
+
   }
 
   async handleCredentialResponse(response: CredentialResponse){
-    await this.authService.loginWithGoogle(response.credential).subscribe(
-      (x: any) => {
+    console.log(response)
+    this.authService.loginWithGoogle(response.credential).subscribe(
+      (x: {token: any}) => {
+        console.log("token:   ", x.token);
         this.userService.setUserToken(x.token);
-        this.ngZone.run(()=>{
+        this.userService.isLogged();
+        this.ngZone.run(() => {
           this.router.navigateByUrl('home');
-        })
+        });
       },
       (error: any) => {
         console.log(error);

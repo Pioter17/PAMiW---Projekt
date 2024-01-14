@@ -22,9 +22,11 @@ export class UserService {
   ) { }
 
   setUserToken(token: string): void {
-    this.localStorageService.setItem(KeyStorage.USER_AUTHENTICATION_TOKEN, token);
-    this.status.next(true);
-    this.role.next(this.getUserData().roles[0].authority);
+    if (token){
+      this.localStorageService.setItem(KeyStorage.USER_AUTHENTICATION_TOKEN, token);
+      this.status.next(true);
+      this.role.next(this.getDecodedAccessToken(token).roles[0].authority);
+    }
   }
 
   getUserToken(): string {

@@ -1,3 +1,5 @@
+<script src="https://accounts.google.com/gsi/client" async></script>
+
 <ng-container *transloco="let t; read: 'loginForm'">
     <form
         [formGroup]="form"
@@ -15,7 +17,7 @@
       <button class="btn btn-primary" (click)="login()">
           {{ t('login') }}
       </button>
-      <div id="#buttonDiv"></div>
+        <div id="buttonDiv"></div>
       <a href="auth/register">
         {{ t('registerLink') }}
       </a>
