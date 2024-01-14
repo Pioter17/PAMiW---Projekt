@@ -72,6 +72,13 @@ public class AppConfig {
                     .build();
             service.register(admin);
 
+            var piotrek = RegisterRequest.builder()
+                    .name("piotrek")
+                    .password("piter")
+                    .role(ADMIN)
+                    .build();
+            service.register(piotrek);
+
             Random random = new Random(98765);
             Faker faker = new Faker(Locale.ENGLISH, random);
             for (int i = 0; i < 40; i++) {

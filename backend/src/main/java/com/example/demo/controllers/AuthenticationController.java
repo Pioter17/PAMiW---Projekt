@@ -36,31 +36,13 @@ public class AuthenticationController {
         return ResponseEntity.ok(service.authenticate(request));
     }
 
-//    @PostMapping("/google")
-//    @CrossOrigin(origins = "http://localhost:4200")
-//    public ResponseEntity<AuthenticationResponse> google(
-//            @RequestBody AuthenticationRequest request
-//    ){
-//        var user = AuthenticationRequest.builder()
-//                .name("admin")
-//                .password("admin")
-//                .build();
-//        return ResponseEntity.ok(service.authenticate(user));
-//    }
-
-//    @GetMapping("/google")
-//    public String afterLoginSuccess(Model model) {
-//        var user = AuthenticationRequest.builder()
-//                .name("admin")
-//                .password("admin")
-//                .build();
-//        var token = service.authenticate(user);
-//        AuthenticationResponse authenticationResponse = new AuthenticationResponse(token.getToken());
-//
-//        model.addAttribute("authResponse", authenticationResponse);
-//
-//        return "redirect:http://localhost:4200/auth/login";
-//    }
+    @PostMapping("/google")
+    @CrossOrigin(origins = "http://localhost:4200")
+    public ResponseEntity<AuthenticationResponse> google(
+            @RequestBody String credential
+    ){
+        return ResponseEntity.ok(service.oauth(credential));
+    }
 
     @PostMapping("/logout")
     @CrossOrigin(origins = "http://localhost:4200")

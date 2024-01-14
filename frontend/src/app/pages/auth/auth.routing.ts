@@ -21,10 +21,6 @@ export default [
                 path: PathRoutes.REGISTER,
                 loadComponent: () => import('@pages/auth/components/register/register.component').then(mod => mod.RegisterComponent),
             },
-            {
-              path: 'google',
-              loadComponent: () => import('@pages/auth/components/google/google.component').then(mod => mod.GoogleComponent),
-            }
         ]
     }
 ] as Routes

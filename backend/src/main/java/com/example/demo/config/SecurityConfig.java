@@ -38,10 +38,6 @@ public class SecurityConfig {
                 .and()
                 .authenticationProvider(authenticationProvider)
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
-//                .oauth2Login(oauth2Login ->
-//                        oauth2Login
-//                                .defaultSuccessUrl("/api/v1/auth/google")
-//                );
 
 
         return http.build();
