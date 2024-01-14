@@ -1,9 +1,13 @@
 {
     "language": "Zmień język",
-    "theme": "Zmień kolor",
+    "theme": "Zmień motyw",
     "logged": "Zalogowany jako",
     "notLogged": "Jesteś niezalogowany",
     "logout": "Wyloguj",
+    "movies": "Filmy",
+    "directors": "Reżyserzy",
+    "login": "Logowanie",
+    "register": "Rejestracja",
     "displayMovies": {
         "showAll": "Wyświetl wszystkie",
         "show": "Pokaż listę filmów",
@@ -37,6 +41,7 @@
         "password": "Hasło",
         "email": "Adres e-mail",
         "login": "Zaloguj",
+        "google": "Zaloguj się z Google",
         "loginLink": "Masz już konto? Zaloguj się",
         "registerLink": "Nie masz konta? Zarejestruj się!",
         "register": "Zarejestruj",

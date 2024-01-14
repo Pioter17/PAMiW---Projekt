@@ -1,0 +1,17 @@
+<ng-container *transloco="let t">
+  <div class="nav-scrollable">
+    <nav class="flex-column">
+        <div class="nav-item px-3">
+            <a class="nav-link" AppActiveLink routerLink="/auth/login">
+                <span class="bi bi-plus-square-fill-nav-menu" aria-hidden="true"></span> {{ t('login') }}
+            </a>
+        </div>
+        <div class="nav-item px-3">
+            <a class="nav-link" AppActiveLink routerLink="/auth/register">
+                <span class="bi bi-plus-square-fill-nav-menu" aria-hidden="true"></span> {{ t('register') }}
+            </a>
+        </div>
+    </nav>
+  </div>
+</ng-container>
+

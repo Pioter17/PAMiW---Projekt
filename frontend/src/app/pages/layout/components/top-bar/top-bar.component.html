@@ -1,11 +1,11 @@
 <ng-container *transloco="let t">
   <div class="left">
     @if (isUserLogged | async) {
-      <h2>
+      <h2 class="title">
         {{ t('logged') }} {{ role | async }}
       </h2>
     } @else {
-      <h2> {{ t('notLogged') }} </h2>
+      <h2 class="title"> {{ t('notLogged') }} </h2>
     }
   </div>
   <div class="buttons">

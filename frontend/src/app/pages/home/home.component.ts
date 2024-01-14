@@ -10,8 +10,6 @@ import { NavListComponent } from './components/nav-list/nav-list.component';
   standalone: true,
   imports: [
     CommonModule,
-    DisplayDirectorsComponent,
-    DisplayMoviesComponent,
     RouterModule,
     NavListComponent
   ],

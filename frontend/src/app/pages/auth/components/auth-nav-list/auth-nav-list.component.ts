@@ -1,22 +1,20 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { ActiveLinkDirective } from './shared/link.directive';
 import { TranslocoModule } from '@ngneat/transloco';
+import { ActiveLinkDirective } from '@pages/home/components/nav-list/shared/link.directive';
 
 @Component({
-  selector: 'app-nav-list',
+  selector: 'app-auth-nav-list',
   standalone: true,
   imports: [
     CommonModule,
-    RouterModule,
     TranslocoModule,
-    ActiveLinkDirective,
+    RouterModule,
+    ActiveLinkDirective
   ],
-  templateUrl: './nav-list.component.html',
-  styleUrl: './nav-list.component.scss',
+  templateUrl: './auth-nav-list.component.html',
+  styleUrl: './auth-nav-list.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class NavListComponent {
-
-}
+export class AuthNavListComponent { }

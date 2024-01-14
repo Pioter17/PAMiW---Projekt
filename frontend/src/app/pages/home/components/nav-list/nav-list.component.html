@@ -1,14 +1,17 @@
-<div class="nav-scrollable">
-  <nav class="flex-column">
-      <div class="nav-item px-3">
-          <a class="nav-link" AppActiveLink routerLink="/home/movies">
-              <span class="bi bi-plus-square-fill-nav-menu" aria-hidden="true"></span> Movies
-          </a>
-      </div>
-      <div class="nav-item px-3">
-          <a class="nav-link" AppActiveLink routerLink="/home/directors">
-              <span class="bi bi-plus-square-fill-nav-menu" aria-hidden="true"></span><span>Directors</span>
-          </a>
-      </div>
-  </nav>
-</div>
+<ng-container *transloco="let t">
+  <div class="nav-scrollable">
+    <nav class="flex-column">
+        <div class="nav-item px-3">
+            <a class="nav-link" AppActiveLink routerLink="/home/movies">
+                <span class="bi bi-plus-square-fill-nav-menu" aria-hidden="true"></span> {{ t('movies') }}
+            </a>
+        </div>
+        <div class="nav-item px-3">
+            <a class="nav-link" AppActiveLink routerLink="/home/directors">
+                <span class="bi bi-plus-square-fill-nav-menu" aria-hidden="true"></span> {{ t('directors') }}
+            </a>
+        </div>
+    </nav>
+  </div>
+</ng-container>
+

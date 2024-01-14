@@ -1,6 +1,6 @@
 :host {
   display: block;
-  
+
 }
 
 .wrapper {
@@ -13,6 +13,7 @@
 
 .title {
   text-align: center;
+  margin: 20px;
 }
 
 .add__movie__form {
@@ -20,4 +21,8 @@
   flex-direction: column;
   row-gap: var(--gap);
   padding: 20px;
+}
+
+button {
+  margin: 10px;
 }

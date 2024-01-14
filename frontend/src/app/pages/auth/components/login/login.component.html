@@ -2,21 +2,24 @@
     <form
         [formGroup]="form"
     >
-        <label> {{t('name')}} </label>
-        <input
-            formControlName="name"
-            type="text"
-        >
-        <label> {{t('password')}} </label>
-        <input
-            formControlName="password"
-            type="password"
-        >
-        <button (click)="login()">
-            {{ t('login') }}
-        </button>
-        <a href="auth/register">
-            {{ t('registerLink') }}
-        </a>
+      <label> {{t('name')}} </label>
+      <input
+          formControlName="name"
+          type="text"
+      >
+      <label> {{t('password')}} </label>
+      <input
+          formControlName="password"
+          type="password"
+      >
+      <button class="btn btn-primary" (click)="login()">
+          {{ t('login') }}
+      </button>
+      <a href="">
+          {{ t('google') }}
+      </a>
+      <a href="auth/register">
+        {{ t('registerLink') }}
+      </a>
     </form>
 </ng-container>

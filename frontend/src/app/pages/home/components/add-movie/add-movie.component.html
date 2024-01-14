@@ -1,98 +1,98 @@
 <ng-container *transloco="let t; read 'displayMovies'">
-    <div class="wrapper">
-      <h2 class="title">
-        {{isEdit? t('addEdit.edit') : t('addEdit.add')}} {{ t('addEdit.movie') }}
-      </h2>
-      <form
-        [formGroup]="form"
-        class="add__movie__form"
-      >
-        <mat-form-field appearance="fill">
-          <mat-label>{{t('name')}}</mat-label>
-          <input
-            matInput
-            type="text"
-            formControlName="name"
-            name="name"
-          >
-          <mat-error>
-            {{t('addEdit.required')}}
-          </mat-error>
-        </mat-form-field>
+  <div class="wrapper">
+    <h2 class="title">
+      {{isEdit? t('addEdit.edit') : t('addEdit.add')}} {{ t('addEdit.movie') }}
+    </h2>
+    <form
+      [formGroup]="form"
+      class="add__movie__form"
+    >
+      <mat-form-field appearance="fill">
+        <mat-label>{{t('name')}}</mat-label>
+        <input
+          matInput
+          type="text"
+          formControlName="name"
+          name="name"
+        >
+        <mat-error>
+          {{t('addEdit.required')}}
+        </mat-error>
+      </mat-form-field>
 
-        <mat-form-field appearance="fill">
-          <mat-label>{{t('director')}}</mat-label>
-          <mat-select
-            formControlName="director_id"
+      <mat-form-field appearance="fill">
+        <mat-label>{{t('director')}}</mat-label>
+        <mat-select
+          formControlName="director_id"
+        >
+          <mat-option
+            *ngFor="let director of directors"
+            [value]="director.id"
           >
-            <mat-option
-              *ngFor="let director of directors"
-              [value]="director.id"
-            >
-              {{ director.name }}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
+            {{ director.name }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
 
-        <mat-form-field appearance="fill">
-          <mat-label>{{t('producer')}}</mat-label>
-          <input
-            matInput
-            type="text"
-            formControlName="producer"
-            name="producer"
-          >
-          <mat-error>
-            {{t('addEdit.required')}}
-          </mat-error>
-        </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>{{t('producer')}}</mat-label>
+        <input
+          matInput
+          type="text"
+          formControlName="producer"
+          name="producer"
+        >
+        <mat-error>
+          {{t('addEdit.required')}}
+        </mat-error>
+      </mat-form-field>
 
-        <mat-form-field appearance="fill">
-          <mat-label>{{t('rating')}}</mat-label>
-          <input
-            matInput
-            type="number"
-            formControlName="rating"
-            name="rating"
-          >
-          <mat-error>
-            {{t('addEdit.ratingRequired')}}
-          </mat-error>
-        </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>{{t('rating')}}</mat-label>
+        <input
+          matInput
+          type="number"
+          formControlName="rating"
+          name="rating"
+        >
+        <mat-error>
+          {{t('addEdit.ratingRequired')}}
+        </mat-error>
+      </mat-form-field>
 
-        <mat-form-field appearance="fill">
-          <mat-label>{{t('length')}}</mat-label>
-          <input
-            matInput
-            type="number"
-            formControlName="length"
-            name="length"
-          >
-          <mat-error>
-            {{t('addEdit.lengthRequired')}}
-          </mat-error>
-        </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>{{t('length')}}</mat-label>
+        <input
+          matInput
+          type="number"
+          formControlName="length"
+          name="length"
+        >
+        <mat-error>
+          {{t('addEdit.lengthRequired')}}
+        </mat-error>
+      </mat-form-field>
 
-        <mat-dialog-actions align="end">
-          <button
-            type="button"
-            mat-button
-            color="accent"
-            (click)="onCancelClose()"
-          >
-            {{t('addEdit.cancel')}}
-          </button>
+      <mat-dialog-actions align="end">
+        <button
+          type="button"
+          class="btn btn-danger"
+          color="accent"
+          (click)="onCancelClose()"
+        >
+          {{t('addEdit.cancel')}}
+        </button>
 
-          <button
-            type="submit"
-            mat-button
-            color="primary"
-            [disabled]="(isSame$ | async) || form.invalid"
-            (click)="onAddClose()"
-          >
-            {{isEdit? t('addEdit.edit') : t('addEdit.add')}}
-          </button>
-        </mat-dialog-actions>
-      </form>
-    </div>
+        <button
+          type="submit"
+          class="btn btn-primary"
+          color="primary"
+          [disabled]="(isSame$ | async) || form.invalid"
+          (click)="onAddClose()"
+        >
+          {{isEdit? t('addEdit.edit') : t('addEdit.add')}}
+        </button>
+      </mat-dialog-actions>
+    </form>
+  </div>
 </ng-container>

@@ -7,17 +7,12 @@
             formControlName="name"
             type="text"
         >
-        <!-- <label> {{t('email')}} </label>
-        <input
-            formControlName="name"
-            type="email"
-        > -->
         <label> {{t('password')}} </label>
         <input
             formControlName="password"
             type="password"
         >
-        <button (click)="register()">
+        <button class="btn btn-primary" (click)="register()">
             {{ t('register') }}
         </button>
         <a href="auth/login">

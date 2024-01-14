@@ -1,9 +1,13 @@
 {
   "language": "Change language",
-  "theme": "Change color",
+  "theme": "Change theme",
   "logged": "Logged in as",
   "notLogged": "You are not logged in",
   "logout": "Logout",
+  "movies": "Movies",
+  "login": "Log in",
+  "register": "Registration",
+  "directors": "Directors",
   "displayMovies": {
     "showAll": "Show all",
     "show": "Show movie list",
@@ -37,6 +41,7 @@
     "password": "Password",
     "email": "Email address",
     "login": "Login",
+    "google": "Log in with Google",
     "loginLink": "Already have an account? Log in",
     "registerLink": "Don't have an account? Register now!",
     "register": "Register",

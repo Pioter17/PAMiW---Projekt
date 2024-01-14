@@ -61,7 +61,7 @@
               {{t('rating')}} {{ movie.rating }}
             </p>
             @if ((role | async) == "ADMIN") {
-              <button (click)="deleteMovie(movie.id, $index)" class="oncard btn btn-outline-secondary">
+              <button (click)="deleteMovie(movie.id, $index)" class="oncard btn btn-outline-danger">
                 <span class="material-symbols-outlined">
                   delete
                 </span>

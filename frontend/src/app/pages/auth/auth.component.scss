@@ -1,3 +1,11 @@
 :host {
-  display: block;
+  display: flex;
+}
+
+.nav {
+  width: 20%;
+}
+
+.wrapper {
+  width: 70%;
 }
