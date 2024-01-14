@@ -5,8 +5,6 @@
 
 <PageTitle>Movies</PageTitle>
 
-<h3>Full list of movies</h3>
-
 @if (movies == null)
 {
     <p><em>@message</em></p>
@@ -18,28 +16,59 @@ else
     {
         <p><em>"Wystąpił błąd"</em></p>
     }
-    <div>
-        <InputText @bind-Value=searchTerm></InputText>
-        <button class="btn btn-primary" @onclick=Search>Search</button>
-        <button class="btn btn-primary" @onclick="()=> GoToCreate()">Create</button>
-    </div>
-    @foreach (var movie in movies)
-    {
-        <div class="card mb-4">
-            <div class="card-body">
-                <h5 class="card-title">Name: @movie.name</h5>
-                <p class="card-text">Director: @movie.director.name</p>
-                <p class="card-text">Producer: @movie.producer</p>
-                <p class="card-text">Rating: @movie.rating</p>
-                <p class="card-text">Length: @movie.length</p>
-                <button class="btn btn-primary" @onclick="()=> GoToEdit(movie.name)">Edit</button>
+    <div class="container">
+        <div class="actions">
+            <div class="search">
+                <InputText @bind-Value=searchTerm></InputText>
+                <button class="btn btn-primary" @onclick=Search>
+                    <span class="material-symbols-outlined">
+                        search
+                    </span>
+                </button>
+                <button class="btn btn-outline-secondary" @onclick="()=> GoToCreate()">
+                    <span class="material-symbols-outlined">
+                        add
+                    </span>
+                </button>
+            </div>
+            <div>
+                <button class="btn btn-primary" disabled="@(currentPage==1)" @onclick="PreviousPage">
+                    <span class="material-symbols-outlined">
+                        arrow_back
+                    </span>
+                </button>
+                <span>@currentPage</span>
+                <button class="btn btn-primary" disabled="@(currentPage==totalPages)" @onclick="NextPage">
+                    <span class="material-symbols-outlined">
+                        arrow_forward
+                    </span>
+                </button>
             </div>
         </div>
-    }
+        @foreach (var movie in movies)
+        {
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h5 class="card-title">Name: @movie.name</h5>
+                    <p class="card-text">Director: @movie.director.name</p>
+                    <p class="card-text">Producer: @movie.producer</p>
+                    <p class="card-text">Rating: @movie.rating</p>
+                    <p class="card-text">Length: @movie.length</p>
+                    <button class="btn btn-outline-danger" @onclick="()=> HandleDelete(movie)">
+                        <span class="material-symbols-outlined">
+                            delete
+                        </span>
+                    </button>
+                    <button class="btn btn-primary" @onclick="()=> GoToEdit(movie.name)">
+                        <span class="material-symbols-outlined">
+                            edit
+                        </span>
+                    </button>
+                </div>
+            </div>
+        }
+    </div>
 
-    <button class="btn btn-primary" disabled="@(currentPage==1)" @onclick="PreviousPage">Previous</button>
-    <span>@currentPage</span>;
-    <button class="btn btn-primary" disabled="@(currentPage==totalPages)" @onclick="NextPage">Next</button>
 }
 
 
@@ -75,6 +104,17 @@ else
     void GoToCreate()
     {
         NavigationManager.NavigateTo($"/movies/createmovie");
+    }
+
+    async Task HandleDelete(Movie movie)
+    {
+        var response1 = await MovieService.DeleteMovieAsync(movie.id);
+        var response = await MovieService.GetMoviesAsync(currentPage);
+        if (response != null)
+        {
+            movies = response.Content;
+            totalPages = response.TotalPages;
+        }
     }
 
     private async Task PreviousPage()

@@ -1,0 +1,13 @@
+.add__movie__form {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+}
+
+.wrapper {
+    margin: auto;
+    width: 60%;
+    margin-top: 40px;
+    border: 2px solid green;
+    border-radius: 20px;
+}

@@ -1,2 +1,8 @@
+bin/
+obj/
 .vs/
 .vscode/
+MauiBlazor/.vs/
+MauiBlazor/.vscode/
+MauiBlazor/bin/
+MauiBlazor/obj/

@@ -16,7 +16,7 @@
     }
 
 .top-row {
-    height: 3.5rem;
+    height: 70px;
     background-color: #EEF5FF;
 }
 
@@ -49,6 +49,7 @@
 .nav-item {
     font-size: 0.9rem;
     padding-bottom: 0.5rem;
+    margin-top: 20px;
 }
 
     .nav-item:first-of-type {

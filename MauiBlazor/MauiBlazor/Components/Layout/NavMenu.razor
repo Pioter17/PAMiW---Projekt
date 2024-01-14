@@ -8,10 +8,10 @@
     <div class="container-fluid">
         <AuthorizeView>
             <Authorized>
-                <h6>Hi, @context.User.Identity.Name</h6>
+                <h6>Zalogowany jako, @context.User.Identity.Name</h6>
             </Authorized>
             <NotAuthorized>
-                <h6>Hi, Guest</h6>
+                <h6>Jesteś niezalogowany</h6>
             </NotAuthorized>
         </AuthorizeView>
         <button title="Navigation menu" class="navbar-toggler" @onclick="ToggleNavMenu">
@@ -22,12 +22,6 @@
 
 <AuthorizeView>
             <Authorized>
-                <div class="nav-item px-3">
-                    <NavLink class="nav-link" style="cursor:pointer" @onclick="LogoutAsync">
-                        <span class="oi oi-plus" aria-hidden="true"></span> Logout
-                    </NavLink>
-                    
-                </div>
                 <div class="@NavMenuCssClass nav-scrollable" @onclick="ToggleNavMenu">
                     <nav class="flex-column">
                         <div class="nav-item px-3">
