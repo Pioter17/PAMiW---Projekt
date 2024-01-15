@@ -8,8 +8,9 @@ Ogólna struktura plików:
 ![](img/backend_pliki.png) 
 
 ### Hosting
-Backend został zahostowany na
-
+Backend został zahostowany na Railway
+![](img/railway_hosting.png)
+![](img/adres_hosta.png)
 
 Dodanie adresu do kodu strony
 ![](img/link_do_api.png)
