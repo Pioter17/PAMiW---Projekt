@@ -26,7 +26,7 @@ namespace MauiBlazor.Components.Shared.Services.MovieService
 
         public async Task<Movie> CreateMovieAsync(MovieDTO movie)
         {
-            var response = await _httpClient.PostAsJsonAsync("http://localhost:8080/movies", movie);
+            var response = await _httpClient.PostAsJsonAsync("https://pamiw-backend-production.up.railway.app/movies", movie);
             var result = await response.Content.ReadFromJsonAsync<Movie>();
             return result;
         }
@@ -35,7 +35,7 @@ namespace MauiBlazor.Components.Shared.Services.MovieService
         {
             try
             {
-                var response = await _httpClient.DeleteAsync("http://localhost:8080/movies" + '/' + id);
+                var response = await _httpClient.DeleteAsync("https://pamiw-backend-production.up.railway.app/movies" + '/' + id);
                 if (!response.IsSuccessStatusCode)
                     return false;
 
@@ -57,7 +57,7 @@ namespace MauiBlazor.Components.Shared.Services.MovieService
                 var userSession = JsonSerializer.Deserialize<UserSession>(getUserSessionFromStorage);
                 _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", userSession.Token.Replace("\\", ""));
 
-                var uri = new Uri($"http://localhost:8080/movies?page={page - 1}", UriKind.Absolute);
+                var uri = new Uri($"https://pamiw-backend-production.up.railway.app/movies?page={page - 1}", UriKind.Absolute);
 
                 var response = await _httpClient.GetAsync(uri);
 
@@ -77,7 +77,7 @@ namespace MauiBlazor.Components.Shared.Services.MovieService
 
         public async Task<Movie> UpdateMovieAsync(int id, MovieDTO movie)
         {
-            var response = await _httpClient.PutAsJsonAsync("http://localhost:8080/movies" + '/' + id, movie);
+            var response = await _httpClient.PutAsJsonAsync("https://pamiw-backend-production.up.railway.app/movies" + '/' + id, movie);
             var result = await response.Content.ReadFromJsonAsync<Movie>();
             return result;
         }
@@ -89,7 +89,7 @@ namespace MauiBlazor.Components.Shared.Services.MovieService
             {
                 string searchUrl = string.IsNullOrWhiteSpace(text) ? "" : $"name={text}&page={page - 1}";
 
-                var uri = new Uri($"http://localhost:8080/movies/search?{searchUrl}", UriKind.Absolute);
+                var uri = new Uri($"https://pamiw-backend-production.up.railway.app/movies/search?{searchUrl}", UriKind.Absolute);
 
                 var response = await _httpClient.GetAsync(uri);
 

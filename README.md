@@ -29,20 +29,28 @@ Po zalogowaniu wyświetla się widok strony głównej razem z danymi pobranymi z
 
 Operacje CRUD
 
-Dodawanie
+Dodawanie  
 ![](img/dodawanie.png)
 
-Edycja
+Edycja  
 ![](img/edycja.png)
 
 Pobieranie wykonuje się automatycznie, zanim dane przyjdą wyświetla się ikona ładowania
 ![](img/ikona_ladowania.png)
 
-Zaimplementowane są role na backendzie, przy czym jest na stałe dwóch użytkowników ADMIN, a każdy nowy rejestrowany jest jako USER.
+Zaimplementowane są role na backendzie, przy czym jest na stałe dwóch użytkowników ADMIN, a każdy nowy rejestrowany jest jako USER.  
 ![](img/rola.png)
 
 Dodano możliwość zmiany motywu aplikacji
 ![](img/ciemny_motyw.png)
 
-Dodano możliwość zmiany języka aplikacji
+Dodano możliwość zmiany języka aplikacji  
 ![](img/zmiana_jezyka.png)
+
+## Aplikacja Desktopowa
+
+Widok okna autentykacji
+![](img/desktop_autentykacja.png)
+
+Widok okna po zalogowaniu
+![](img/desktop_zalogowany.png)

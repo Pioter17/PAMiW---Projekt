@@ -32,7 +32,7 @@ namespace MauiBlazor.Components.Shared.Services.DirectorService
                 string getUserSessionFromStorage = await SecureStorage.Default.GetAsync("UserSession");
                 var userSession = JsonSerializer.Deserialize<UserSession>(getUserSessionFromStorage);
                 _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", userSession.Token.Replace("\\", ""));
-                var uri = new Uri($"http://localhost:8080/directors?page={page-1}", UriKind.Absolute);
+                var uri = new Uri($"https://pamiw-backend-production.up.railway.app/directors?page={page-1}", UriKind.Absolute);
 
                 var response = await _httpClient.GetAsync(uri);
 
@@ -58,7 +58,7 @@ namespace MauiBlazor.Components.Shared.Services.DirectorService
             {
                 string searchUrl = string.IsNullOrWhiteSpace(text) ? "" : $"name={text}&page={page - 1}";
 
-                var uri = new Uri($"http://localhost:8080/directors/search?{searchUrl}", UriKind.Absolute);
+                var uri = new Uri($"https://pamiw-backend-production.up.railway.app/directors/search?{searchUrl}", UriKind.Absolute);
 
                 var response = await _httpClient.GetAsync(uri);
 

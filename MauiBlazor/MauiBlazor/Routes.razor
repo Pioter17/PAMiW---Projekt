@@ -18,6 +18,20 @@
             </LayoutView>
         </NotFound>
     </Router>
+
+    <ThemeSwitcher />
 </CascadingAuthenticationState>
 
+@code {
+    @inject ThemeService ThemeService
 
+    protected override void OnInitialized()
+    {
+        ThemeService.OnThemeChanged += RefreshTheme;
+    }
+
+    private void RefreshTheme()
+    {
+        StateHasChanged();
+    }
+}

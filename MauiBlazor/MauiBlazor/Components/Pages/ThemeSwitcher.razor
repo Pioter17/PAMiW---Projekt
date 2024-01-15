@@ -1,0 +1,10 @@
+﻿@inject ThemeService ThemeService
+
+<button @onclick="ToggleTheme">Toggle Theme</button>
+
+@code {
+    private void ToggleTheme()
+    {
+        ThemeService.CurrentTheme = ThemeService.CurrentTheme == "light" ? "dark" : "light";
+    }
+}

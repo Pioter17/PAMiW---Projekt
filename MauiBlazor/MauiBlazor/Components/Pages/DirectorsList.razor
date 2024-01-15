@@ -5,10 +5,11 @@
 
 <PageTitle>Directors</PageTitle>
 
-<h3>Full list of directors</h3>
 @if (directors == null)
 {
-    <p><em>@message</em></p>
+    <span class="material-symbols-outlined">
+        sync
+    </span>
 }
 
 else
@@ -17,25 +18,44 @@ else
     {
         <p><em>"Wystąpił błąd"</em></p>
     }
-    <div>
-        <InputText @bind-Value=searchTerm></InputText>
-        <button class="btn btn-primary" @onclick=Search>Search</button>
-    </div>
-    @foreach (var director in directors)
-    {
-        <div class="card mb-4">
-            <div class="card-body">
-                <h5 class="card-title">Name: @director.name</h5>
-                <p class="card-text">Nationality: @director.nationality</p>
-                <p class="card-text">Age: @director.age</p>
-                <p class="card-text">Id: @director.id</p>
+    <div class="container">
+        <div class="actions">
+            <div class="search">
+                <InputText @bind-Value=searchTerm></InputText>
+                <button class="btn btn-primary" @onclick=Search>
+                    <span class="material-symbols-outlined">
+                        search
+                    </span>
+                </button>
             </div>
+            <button class="btn btn-primary" disabled="@(currentPage==1)" @onclick="PreviousPage">
+                <span class="material-symbols-outlined">
+                    arrow_back
+                </span>
+            </button>
+            <span style="color:blue">@currentPage</span>
+            <button class="btn btn-primary" disabled="@(currentPage==totalPages)" @onclick="NextPage">
+                <span class="material-symbols-outlined">
+                    arrow_forward
+                </span>
+            </button>
         </div>
-    }
+        
+        @foreach (var director in directors)
+        {
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h5 class="card-title">Name: @director.name</h5>
+                    <p class="card-text">Nationality: @director.nationality</p>
+                    <p class="card-text">Age: @director.age</p>
+                    <p class="card-text">Id: @director.id</p>
+                </div>
+            </div>
+        }
+    </div>
+    
 
-    <button class="btn btn-primary" disabled="@(currentPage==1)" @onclick="PreviousPage">Previous</button>
-    <span>@currentPage</span>
-    <button class="btn btn-primary" disabled="@(currentPage==totalPages)" @onclick="NextPage">Next</button>
+    
 }
 
 

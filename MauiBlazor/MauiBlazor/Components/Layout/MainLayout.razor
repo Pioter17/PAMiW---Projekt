@@ -5,7 +5,7 @@
 @inject HttpClient httpClient
 @inject NavigationManager navigateMgr
 
-<div class="page">
+<div class="page" data-bs-theme="dark" style="@($"background-color: {GetBackgroundColor()}")">
     <div class="sidebar">
         <NavMenu />
     </div>
@@ -13,12 +13,7 @@
     <main>
         <div class="top-row px-4">
             <div style="display: flex; gap: 20px;">
-                <button class="btn btn-outline-secondary" @onclick="ChangeLang">
-                    Zmień język
-                </button>
-                <button class="btn btn-outline-secondary" @onclick="ChangeTheme">
-                    Zmień motyw
-                </button>
+                 <button class="btn btn-outline-secondary" @onclick=ToggleTheme>Change theme</button>
             </div>
             <AuthorizeView>
                 <Authorized>
@@ -31,21 +26,41 @@
             </AuthorizeView>
         </div>
 
-        <article class="content px-4">
+        <article class="content px-4" style>
             @Body
         </article>
     </main>
 </div>
 
 @code {
-    public Task ChangeTheme()
-    {
+    // public Task ChangeTheme()
+    // {
 
+    // }
+
+    // public Task ChangeLang()
+    // {
+
+    // }
+    private string theme = "light"; // Domyślny motyw
+    // private string color = "white";
+
+    private string GetBackgroundColor()
+    {
+        return theme == "light" ? "white" : "#333";
+        // Możesz dostosować tę funkcję do zmiany kolorów w zależności od motywu
     }
 
-    public Task ChangeLang()
+    // private string GetColor()
+    // {
+    //     return color == "black" ? "white" : "black";
+    //     Możesz dostosować tę funkcję do zmiany kolorów w zależności od motywu
+    // }
+
+    private void ToggleTheme()
     {
-        
+        // color = color == "white" ? "black" : "white";
+        theme = theme == "light" ? "dark" : "light";
     }
 
     public async Task LogoutAsync()

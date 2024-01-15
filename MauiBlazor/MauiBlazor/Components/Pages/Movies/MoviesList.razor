@@ -7,7 +7,9 @@
 
 @if (movies == null)
 {
-    <p><em>@message</em></p>
+    <span class="material-symbols-outlined">
+        sync
+    </span>
 }
 
 else
@@ -37,7 +39,7 @@ else
                         arrow_back
                     </span>
                 </button>
-                <span>@currentPage</span>
+                <span style="color:blue">@currentPage</span>
                 <button class="btn btn-primary" disabled="@(currentPage==totalPages)" @onclick="NextPage">
                     <span class="material-symbols-outlined">
                         arrow_forward

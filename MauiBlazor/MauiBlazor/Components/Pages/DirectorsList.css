@@ -1,0 +1,27 @@
+.actions {
+    display: flex;
+    flex-direction: column;
+    margin: 20px;
+    button
+
+{
+    margin: 5px;
+}
+
+}
+
+.search {
+    display: flex;
+}
+
+.container {
+    padding: 60px;
+    align-items: center;
+    text-align: center;
+    width: 60%;
+    margin: auto;
+}
+
+button {
+    margin: 5px;
+}

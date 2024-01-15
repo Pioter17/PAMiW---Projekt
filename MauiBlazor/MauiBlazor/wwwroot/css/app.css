@@ -2,6 +2,16 @@
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
 
+body {
+    --bs-primary: #007bff; /* Kolor podstawowy Bootstrapa */
+    /* Dodatkowe style motywu jasnego */
+}
+
+body.dark {
+    --bs-primary: #333; /* Kolor podstawowy dla motywu ciemnego */
+    /* Dodatkowe style motywu ciemnego */
+}
+
 a, .btn-link {
     color: #006bb7;
 }

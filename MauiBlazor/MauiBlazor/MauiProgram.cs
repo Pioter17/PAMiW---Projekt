@@ -38,6 +38,7 @@ namespace MauiBlazor
             builder.Services.AddSingleton<IOptions<AppSettings>>(new OptionsWrapper<AppSettings>(appSettingsSection));
             builder.Services.AddSingleton<MovieService>();
             builder.Services.AddSingleton<DirectorService>();
+            builder.Services.AddSingleton<ThemeService>();
             builder.Services.AddAuthorizationCore();
             builder.Services.AddScoped<AuthenticationStateProvider, CustomAuthenticationStateProvider>();
 
