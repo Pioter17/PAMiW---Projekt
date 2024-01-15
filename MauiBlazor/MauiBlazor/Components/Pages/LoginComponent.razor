@@ -40,7 +40,7 @@
         var user = new Login();
         user.name = LoginModel.name;
         user.password = LoginModel.password;
-        var result = await httpClient.PostAsJsonAsync("http://localhost:8080/api/v1/auth/login", user);
+        var result = await httpClient.PostAsJsonAsync("https://pamiw-backend-production.up.railway.app/api/v1/auth/login", user);
         if (!result.IsSuccessStatusCode)
         {
             return;
