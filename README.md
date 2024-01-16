@@ -21,8 +21,7 @@ Implementacja logowania/rejestracji - użytkownik wybiera i wpisuje nazwę oraz 
 Widok ekranu przed zalogowaniem
 ![](img/front_bez_logowanie.png)
 
-Dodano możlowość autentykacji przez Google OAuth
-![](img/oauth.png)
+Dodano możlowość autentykacji przez Google OAuth - aktywna jedynie podczas oddawania projektu, obecnie wyłączona
 
 Po zalogowaniu wyświetla się widok strony głównej razem z danymi pobranymi z api po zalogowaniu
 ![](img/front_zalogowany.png)
