@@ -1,55 +1,59 @@
-# PAMiW---Projekt
-Projekt zrealizowany
+# PAMiW---Project
+It is project for university classes. The main purpose is to make a multi-platform application for CRUD operations on some data.
 
 ## Backend
 
-Backend został napisany w Java Spring. Obejmuje implementację bazy danych, udostępnienie endpointów od operacji CRUD na danych oraz autentykację poprzez jwt.
-Ogólna struktura plików:
-![](img/backend_pliki.png) 
+Backend was written in Java Spring. It covers database implementation, some fictional data generation (movies and directors in this case), CRUD operations endpoints, user profile, roles and JWT authentication. Base file structure: 
+![](img/backend_pliki.png)
 
-### Hosting
-Backend został zahostowany na Railway
-![](img/railway_hosting.png)
-![](img/adres_hosta.png)
+## Frontend
 
-Dodanie adresu do kodu strony
-![](img/link_do_api.png)
+Frontend is an Angular app. It allows users to log in/register new account, browse the movies/directors lists (with search filters), add/edit/delete the movies from the list, change language, change theme. I used Bootstrap for styling. 
 
-## Realizacja punktów
+## Project objectives completion
 
-Implementacja logowania/rejestracji - użytkownik wybiera i wpisuje nazwę oraz hasło. Aplikacja blokuje dostęp niezalogowanym użytkownikom.
-Widok ekranu przed zalogowaniem
-![](img/front_bez_logowanie.png)
+<details>
+  <summary>Click to see screenshots and short description of projects main goals.</summary>
+  <br>
 
-Dodano możlowość autentykacji przez Google OAuth - aktywna jedynie podczas oddawania projektu, obecnie wyłączona
+  Implementation of login/registration - user enters name and password. The access is blocked to users that are not logged in. Authentication window:
+  ![](img/front_bez_logowanie.png)
 
-Po zalogowaniu wyświetla się widok strony głównej razem z danymi pobranymi z api po zalogowaniu
-![](img/front_zalogowany.png)
+  After authentication there is home page with displayed data. Data is fetched from API. 
+  ![](img/front_zalogowany.png)
 
-Operacje CRUD
+  ### CRUD Operations
 
-Dodawanie  
-![](img/dodawanie.png)
+  Create <br>
+  ![](img/dodawanie.png)
 
-Edycja  
-![](img/edycja.png)
+  Update <br>
+  ![](img/edycja.png)
 
-Pobieranie wykonuje się automatycznie, zanim dane przyjdą wyświetla się ikona ładowania
-![](img/ikona_ladowania.png)
+  Fetching is done automatically, before the data is ready the loading icon is shown. <br>
+  ![](img/ikona_ladowania.png)
+ 
+  Roles are implemented in the backend. There are two users with ADMIN role, and every new registered user is given the USER role. <br>
+  ![](img/rola.png)
 
-Zaimplementowane są role na backendzie, przy czym jest na stałe dwóch użytkowników ADMIN, a każdy nowy rejestrowany jest jako USER.  
-![](img/rola.png)
+  Theme changing option <br>
+  ![](img/ciemny_motyw.png)
 
-Dodano możliwość zmiany motywu aplikacji
-![](img/ciemny_motyw.png)
+  Language changing option (language on the screenshot with dark theme is different than on the previous ones, that's why I didn't add another image) <br>
+  ![](img/zmiana_jezyka.png)
+</details>
 
-Dodano możliwość zmiany języka aplikacji  
-![](img/zmiana_jezyka.png)
+## Desktop Application
 
-## Aplikacja Desktopowa
+Desktop app is made with MAUI Blazor. It has similar features as Angular web app.
+<details>
+  <summary>Click to see how the desktop application looks</summary>
+  <br>
 
-Widok okna autentykacji
-![](img/desktop_autentykacja.png)
+  Authentication window
+  ![](img/desktop_autentykacja.png)
 
-Widok okna po zalogowaniu
-![](img/desktop_zalogowany.png)
+  After login window
+  ![](img/desktop_zalogowany.png)
+
+</details>
