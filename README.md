@@ -1,5 +1,5 @@
 # PAMiW---Project
-It is project for university classes. The main purpose is to make a multi-platform application for CRUD operations on some data.
+It is project for one of university classes. The main purpose is to make a multi-platform application for CRUD operations on some data.
 
 ## Backend
 
