@@ -3,8 +3,14 @@ It is project for university classes. The main purpose is to make a multi-platfo
 
 ## Backend
 
-Backend was written in Java Spring. It covers database implementation, some fictional data generation (movies and directors in this case), CRUD operations endpoints, user profile, roles and JWT authentication. Base file structure: 
-![](img/backend_pliki.png)
+Backend was written in Java Spring. It covers database implementation, some fictional data generation (movies and directors in this case), CRUD operations endpoints, user profile, roles and JWT authentication.  
+
+<details>
+  <summary>Click to see file structure</summary>
+  <br>
+  
+  ![](img/backend_pliki.png)
+</details>
 
 ## Frontend
 
