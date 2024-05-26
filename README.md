@@ -1,9 +1,13 @@
 # PAMiW---Project
 It is project for one of university classes. The main purpose is to make a multi-platform application for CRUD operations on some data.
 
+## Technologies
+
+Angular, Typescript, Java, Spring, JWT, Bootstrap, MAUI Blazor, HTML, SCSS.
+
 ## Backend
 
-Backend was written in Java Spring. It covers database implementation, some fictional data generation (movies and directors in this case), CRUD operations endpoints, user profile, roles and JWT authentication.  
+Backend was written in Java Spring. It covers database implementation, some fictional data generation (movies and directors in this case), CRUD operations endpoints, user profile, roles, authentication and JWT.  
 
 <details>
   <summary>Click to see file structure</summary>
