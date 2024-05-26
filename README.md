@@ -3,7 +3,15 @@ It is project for one of university classes. The main purpose is to make a multi
 
 ## Technologies
 
-Angular, Typescript, Java, Spring, JWT, Bootstrap, MAUI Blazor, HTML, SCSS.
+- Angular,
+- Typescript,
+- Java,
+- Spring,
+- JWT,
+- Bootstrap,
+- MAUI Blazor,
+- HTML,
+- SCSS.
 
 ## Backend
 
