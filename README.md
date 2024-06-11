@@ -5,7 +5,7 @@ It is project for one of university classes. The main purpose is to make a multi
 1. [Technologies](#Technologies)
 2. [Backend Part](#Backend)
 3. [Frontend Part](#Frontend)
-4. [Desktop](#Desktop_Aplication)
+4. [Desktop](#DesktopAplication)
 
 ## Technologies
 
