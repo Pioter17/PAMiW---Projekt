@@ -1,6 +1,12 @@
 # PAMiW---Project
 It is project for one of university classes. The main purpose is to make a multi-platform application for CRUD operations on some data.
 
+## Table of Contents
+1. [Technologies](#Technologies)
+2. [Backend Part](#Backend)
+3. [Frontend Part](#Frontend)
+4. [Desktop](#Desktop_aplication)
+
 ## Technologies
 
 - Angular,
